@@ -1,0 +1,45 @@
+{
+  "name": "@mixtapemadness/serverless/angular",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "domain": {
+    "name": "mixtapemadness.band",
+    "cert-arn": "arn:aws:acm:us-east-1:223673446499:certificate/c2dfda92-d523-4ace-8804-cc432fb9a24f"
+  },
+  "prod-cname": "www",
+  "api-prefix": "api",
+  "scripts": {
+    "start": "nx run serverless-angular:serve",
+    "deploy:nonprod": "nx run serverless-angular:deploy",
+    "deploy:prod": "nx run serverless-angular:deploy --stage=prod",
+    "deploy:dev": "nx run serverless-angular:deploy --stage=dev"
+  },
+  "devDependencies": {
+    "@animus-bi/fs-sls": "^0.9.1-beta.2",
+    "@types/aws-lambda": "^8.10.17",
+    "@types/node": "^10.12.18",
+    "@types/serverless": "^1.72.5",
+    "camelify": "^0.1.0",
+    "dotenv": "^16.0.3",
+    "minimist": "^1.2.8",
+    "mograte": "^2.0.2",
+    "serverless": "^3.10.2",
+    "serverless-cloudside-plugin": "^1.0.6",
+    "serverless-deployment-bucket": "^1.5.2",
+    "serverless-export-env": "github:arabold/serverless-export-env",
+    "serverless-offline": "^12.0.4",
+    "serverless-s3-cleaner": "^2.0.0",
+    "serverless-webpack": "^5.3.3",
+    "shelljs": "^0.8.5",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^10.8.0",
+    "typescript": "^3.2.4",
+    "url-safe-string": "^1.1.0",
+    "webpack": "^4.44.2",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1123.0",
+    "tslib": "^2.5.0"
+  }
+}

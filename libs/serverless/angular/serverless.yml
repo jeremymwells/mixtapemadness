@@ -1,0 +1,92 @@
+
+service: mixtapemadness
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'local'}
+  region: ${opt:region, 'us-east-1'}
+  profile: ${self:service}-${self:custom.env-key}
+  stackName: ${file(./serverless.config.js):stackName}
+  apiGateway: 
+    shouldStartNameWithService: true
+    description: ${self:provider.stackName} APPLICATION 
+    binaryMediaTypes:
+      - '*/*'
+  deploymentBucket: 
+    name: ${self:custom.sls-bucket-name}
+    serverSideEncryption: AES256
+  environment:
+    AWS_ACCOUNT_ID: '${self:custom.aws-account-id}'
+    AWS_PROFILE: '${self:provider.profile}'
+    SPECIFIED_AWS_REGION: '${env:AWS_REGION, self:provider.region}'
+    API_SEGMENT: '${self:custom.api-segment}'
+    DDB_TABLE_PREFIX: '${self:provider.stackName}'
+    STAGE: '${self:provider.stage}'  
+  iamRoleStatements:
+    ${file(./infra/iam/role-statements.yml)}
+
+plugins:
+  - serverless-offline
+  - serverless-webpack
+  - '@animus-bi/fs-sls'
+  - serverless-deployment-bucket
+  - serverless-s3-cleaner
+  - serverless-export-env
+
+custom:
+  # variables for use elsewhere in serverless configuration
+  aws-account-id: !Ref AWS::AccountId
+  api-segment: ${env:API_PREFIX, file(package.json):api-prefix, 'api'}
+  certificate-arn: ${env:DOMAIN_CERT_ARN, file(package.json):domain.cert-arn, ''}
+  domain-name: ${env:DOMAIN_NAME, file(package.json):domain.name, '{yourdomain.com}'}
+  env-key: ${file(./serverless.config.js):env.key}
+  fqdn: ${file(./serverless.config.js):fqdn}
+  is-ephemeral: ${file(./serverless.config.js):env.isEphemeral}
+  prod-CNAME: ${env:PROD_CNAME, file(package.json):prod-cname, 'www'}
+  region: ${self:provider.region}
+  sls-bucket-name: ${self:provider.stackName}-sls-state
+  web-access-log-bucket-name: ${self:provider.stackName}-web-accesslogs
+  web-bucket-name: ${self:provider.stackName}-web
+
+  # plugins configurations
+  export-env:
+    filename: .cloudside.env
+    overwrite: true
+    enableOffline: true
+  deploymentBucket:
+    versioning: true
+    accelerate: true
+    blockPublicAccess: true
+    tags:
+      - Key: Environment
+        Value: ${self:provider.stage}
+  serverless-s3-cleaner:
+     buckets:
+       - ${self:custom.sls-bucket-name}
+       - ${self:custom.web-bucket-name}
+       - ${self:custom.web-access-log-bucket-name}
+  webpack:
+    includeModules: true
+    forceExclude:
+      - aws-sdk
+  fs-sls:
+    ${file(./infra/plugins/fs-sls.yml)}
+  serverless-offline-sns:
+    port: 8081
+    location: .webpack
+
+
+
+# function definitions
+functions:
+  - ${file(./infra/api/domain-handler-events.yml)}
+
+# custom resources definitions
+resources: 
+  - ${file(./infra/web/web-access-log-bucket.resources.yml)}
+  - ${file(./infra/web/web-cf-cname.resouces.yml)}
+  - ${file(./infra/api/apigw-cf-name.resources.yml)}
+  

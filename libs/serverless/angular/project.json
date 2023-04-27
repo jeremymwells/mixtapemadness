@@ -1,0 +1,59 @@
+{
+  "name": "serverless-angular",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/serverless/angular/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/serverless/angular",
+        "main": "libs/serverless/angular/src/index.ts",
+        "tsConfig": "libs/serverless/angular/tsconfig.lib.json"
+      }
+    },
+    "serve": {
+      "command": "cd ./libs/serverless/angular && node ./scripts/run-api.js && cd -",
+      "options": {
+        "stage": "development"
+      },
+      "configurations": {
+        "production": {
+          "stage": "prod"
+        },
+        "development": {
+          "stage": "dev"
+        }
+      }
+    },
+    "deploy": {
+      "command": "cd ./libs/serverless/angular && node ./scripts/deploy.js --stage={args.stage} && cd -"
+    },
+    "undeploy": {
+      "command": "cd ./libs/serverless/angular && node ./scripts/deploy.js --stage={args.stage} -r && cd -"
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/serverless/angular/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/serverless/angular/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

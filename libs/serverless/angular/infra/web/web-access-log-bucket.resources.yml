@@ -1,0 +1,32 @@
+Resources:
+  WebAccessLogBucketRetained:
+    Type: AWS::S3::Bucket
+    Condition: IsPathToProd
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: ${self:custom.web-access-log-bucket-name}
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      VersioningConfiguration:
+        Status: Enabled
+  WebAccessLogBucketEphemeral:
+    Type: AWS::S3::Bucket
+    Condition: IsEphemeral
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: ${self:custom.web-access-log-bucket-name}
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      VersioningConfiguration:
+        Status: Enabled
+Conditions:
+  IsPathToProd:
+    Fn::Equals:
+      - ${self:custom.is-ephemeral}
+      - false  
+  IsEphemeral:
+    Fn::Equals:
+      - ${self:custom.is-ephemeral}
+      - true  
