@@ -1,0 +1,13 @@
+$text-color: silver;
+$background-color: black;
+
+
+
+@font-face {
+  font-family: "nashimura";
+  src: url("assets/fonts/nashimura.otf");
+}
+
+@mixin nashimura {
+  font-family: "nashimura"; //, Helvetica, "Trebuchet MS", Verdana, sans-serif;
+}

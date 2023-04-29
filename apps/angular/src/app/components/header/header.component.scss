@@ -1,0 +1,104 @@
+@import '../../../variables';
+
+$header-height: 3em;
+$padding: $header-height/8;
+$font-size: ($header-height*.3)*2;
+$header-font-color: lighten($text-color, 3%); //#E8D6AA;// lighten($text-color, 3%);
+$header-font-hover-color: #E8D6AA; //darken($text-color, 5%);
+
+.mtm-menu-action {
+  margin: .25em .25em .25em .25em;
+  color: $header-font-color;
+  &:hover {
+    color: $header-font-hover-color;
+    cursor: pointer;
+  }
+}
+
+.mtm-menu-action-float {
+  color: $header-font-color;
+  position: fixed;
+  height: 1em;
+  line-height: 1em;
+  margin: 1em .25em .25em .25em;
+  background-color: black;
+  border-radius: 5px 5px 5px 5px;
+  &:hover {
+    color: $header-font-hover-color;
+    cursor: pointer;
+  }
+}
+
+.mtm-menu {
+  position: fixed;
+  z-index: 1;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 2em;
+  }
+}
+
+.mtm-header {
+  background-color: $background-color;
+  color: $text-color;
+  min-height:2em;
+  font-size: $font-size;
+  line-height: $header-height;
+  padding: 0 .5em 0 .5em;
+}
+
+
+
+.mtm-logo-container {
+  height: $header-height;
+  text-align: center;
+  z-index: 100;
+}
+
+.mtm-header-center-logo {
+  img {
+    height: $header-height*.85;
+    padding: 0.5em 0.5em 0.5em 0.25em;
+    // &:hover {
+    //   border-bottom: 1px dotted $header-font-hover-color;
+    // }
+  }
+}
+
+.mtm-header-center-logo-xs {
+  img {
+    height: $header-height*.6;
+    padding: 0.5em 0.5em 0.5em 0.25em;
+    // &:hover {
+    //   border-bottom: 1px dotted $header-font-hover-color;
+    // }
+  }
+}
+
+.mtm-link {
+  text-decoration: none;
+  color: $header-font-color;
+  text-transform: uppercase;
+  font-size: .65em;
+  margin: .25em .75em .25em .5em;
+  @include nashimura;
+  &:hover {
+    color: $header-font-hover-color;
+    span {
+      border-bottom: 1px dotted $header-font-hover-color;
+    }
+    
+  }
+}
+
+.active-link {
+  span {
+    border-bottom: 2px solid $header-font-hover-color;
+  }
+}

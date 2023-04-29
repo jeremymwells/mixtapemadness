@@ -1,2 +1,8 @@
-<div>MIXTAPE MADNESS</div>
-<router-outlet></router-outlet>
+<div class="mtm-page">
+  <mixtapemadness-header [smallMenuOpen]="smallMenuOpen" (toggleSmallMenu)="toggleSmallMenu($event)"></mixtapemadness-header>
+  <div class="mtm-main" *ngIf="!smallMenuOpen">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+

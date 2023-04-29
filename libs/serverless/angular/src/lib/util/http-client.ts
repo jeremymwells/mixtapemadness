@@ -8,9 +8,9 @@ const requestTypes = {
   'http:': httpRequest
 };
 
-const request = (url, requestOptions, body?) => {
+const request = (url: string, requestOptions: { method: any; }, body?: string | undefined) => {
   const urlParts = new URL(url);
-  const request = requestTypes[urlParts.protocol];
+  const request = (requestTypes as any)[urlParts.protocol];
   if (!request) {
     throw new Error(`Protocol ${urlParts.protocol} not supported`);
   }
@@ -19,7 +19,7 @@ const request = (url, requestOptions, body?) => {
     console.info('HTTP REQUEST BEFORE TRANSFORM: ', url, { ...urlParts, ...requestOptions, ...{ body } });
     const req = request(
       { ...urlParts, ...requestOptions },
-      stringResponseParser((resp, err) => {
+      stringResponseParser((resp: unknown, err: any) => {
         if (err) {
           reject(err);
         } else {
@@ -28,12 +28,12 @@ const request = (url, requestOptions, body?) => {
       })
     );
 
-    req.on('abort', error => {
+    req.on('abort', (error: any) => {
       console.error('REQUEST ABORT ERROR', error);
       reject(error);
     });
 
-    req.on('error', error => {
+    req.on('error', (error: any) => {
       console.error('REQUEST ERROR', error);
       reject(error);
     });
@@ -52,14 +52,14 @@ const request = (url, requestOptions, body?) => {
   });
 };
 
-const stringResponseParser = callback => response => {
+const stringResponseParser = (callback: { (resp: unknown, err: any): void; (arg0: string | undefined, arg1: string): void; }) => (response: any) => {
   let resp = '';
   let err = '';
-  response.on('data', chunk => {
+  response.on('data', (chunk: string) => {
     resp += chunk;
   });
 
-  response.on('error', error => {
+  response.on('error', (error: string) => {
     err += error;
   });
 
@@ -78,15 +78,15 @@ export class HttpClient {
 
   constructor (private defaultHttpClientOptions = {}) { }
 
-  get<T> (url, options = {}) {
+  get<T> (url: any, options = {}) {
     return request(url, { ...this.defaultHttpClientOptions, ...options, method: 'GET' }) as Promise<T>;
   }
 
-  post (url, body, options = {}) {
+  post (url: any, body: any, options = {}) {
     return request(url, { ...this.defaultHttpClientOptions, ...options, method: 'POST' }, body);
   }
 
-  put (url, body, options = {}) {
+  put (url: any, body: any, options = {}) {
     return request(url, { ...this.defaultHttpClientOptions, ...options, method: 'PUT' }, body);
   }
 
@@ -98,7 +98,7 @@ export class HttpClient {
     );
   }
 
-  stringifyQuery (query) {
+  stringifyQuery (query: any) {
     if (!Object.keys(query || {}).length) {
       return '';
     }

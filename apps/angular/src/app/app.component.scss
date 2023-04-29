@@ -1,0 +1,13 @@
+@import '../variables';
+
+.mtm-page {
+  height: 100vh;
+  background-color: black;
+}
+
+.mtm-main {
+  background-color: $background-color;
+  padding: 1em 1em 1em 1em;
+  height: 100%;
+  color: $text-color;
+}
