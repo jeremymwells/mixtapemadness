@@ -1,6 +1,6 @@
 <div class="mtm-page">
   <mixtapemadness-header [smallMenuOpen]="smallMenuOpen" (toggleSmallMenu)="toggleSmallMenu($event)"></mixtapemadness-header>
-  <div class="mtm-main" *ngIf="!smallMenuOpen">
+  <div class="mtm-main" [hidden]="smallMenuOpen">
     <router-outlet></router-outlet>
   </div>
 </div>

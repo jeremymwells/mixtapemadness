@@ -8,18 +8,20 @@
     require('dotenv').config();
   }
 
-  process.env.BROWSER = 'none';
-  process.env.FAST_REFRESH = 'false';
-  process.env.SLS_DEBUG='*';
+  // process.env.BROWSER = 'none';
+  // process.env.FAST_REFRESH = 'false';
+  // process.env.SLS_DEBUG='*';
   const port = argv.port || '8080';
   const gitBranch = await helpers.getGitBranch(process.env.GITHUB_REF);
   process.env.FE_STAGE = gitBranch;
-  const stackName = await helpers.getStackName(null, helpers.getResolveVariablesShim(argv));
-  const appStage = (argv || { }).stage || 'nonprod';
+  // const stackName = await helpers.getStackName(null, helpers.getResolveVariablesShim(argv));
+  // const appStage = (argv || { }).stage || 'nonprod';
 
   const runOfflineCode = await helpers.runProcess([
-    `npx sls offline start`,
+    // `SLS_DEBUG=* node --inspect node_modules/serverless/bin/serverless offline start`,
+    `SLS_DEBUG=* npx sls offline start`,
     // `--printOutput`,
+    `--noTimeout`,
     `--httpPort ${port}`,
     `--stage ${gitBranch}`,
     `cloudside`,

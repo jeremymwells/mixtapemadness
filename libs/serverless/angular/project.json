@@ -27,6 +27,20 @@
         }
       }
     },
+    "debug": {
+      "command": "cd ./libs/serverless/angular && node --inspect node_modules/serverless/bin/serverless offline start --noTimeout --httpPort=8080 --stage=main && cd -",
+      "options": {
+        "stage": "development"
+      },
+      "configurations": {
+        "production": {
+          "stage": "prod"
+        },
+        "development": {
+          "stage": "dev"
+        }
+      }
+    },
     "deploy": {
       "command": "cd ./libs/serverless/angular && node ./scripts/deploy.js --stage={args.stage} && cd -"
     },
@@ -53,6 +67,12 @@
           "codeCoverage": true
         }
       }
+    },
+    "migrate": {
+      "command": "cd ./libs/serverless/angular && node ./scripts/migrate.js --cmd={args.cmd} && cd -"
+    },
+    "domainName": {
+      "command": "cd ./libs/serverless/angular && node ./scripts/domain.js --cmd={args.cmd} && cd -"
     }
   },
   "tags": []

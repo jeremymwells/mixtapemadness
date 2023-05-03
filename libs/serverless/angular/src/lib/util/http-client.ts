@@ -2,6 +2,8 @@ import { request as httpRequest } from 'http';
 import { request as httpsRequest } from 'https';
 import { URL } from 'url';
 import * as querystring from 'querystring';
+// import { StringDecoder } from 'string_decoder';
+import { createUnzip } from 'zlib';
 
 const requestTypes = {
   'https:': httpsRequest,
@@ -18,7 +20,8 @@ const request = (url: string, requestOptions: { method: any; }, body?: string | 
   return new Promise((resolve, reject) => {
     console.info('HTTP REQUEST BEFORE TRANSFORM: ', url, { ...urlParts, ...requestOptions, ...{ body } });
     const req = request(
-      { ...urlParts, ...requestOptions },
+      urlParts,
+      requestOptions,
       stringResponseParser((resp: unknown, err: any) => {
         if (err) {
           reject(err);
@@ -53,10 +56,16 @@ const request = (url: string, requestOptions: { method: any; }, body?: string | 
 };
 
 const stringResponseParser = (callback: { (resp: unknown, err: any): void; (arg0: string | undefined, arg1: string): void; }) => (response: any) => {
+  const zip = createUnzip();
+  // const decoder = new StringDecoder('utf8');
   let resp = '';
   let err = '';
-  response.on('data', (chunk: string) => {
-    resp += chunk;
+  response.on('data', (chunk: Buffer) => {
+    zip.write(chunk);
+  });
+
+  zip.on('data', (chunk: Buffer) => {
+    resp += chunk.toString('utf8');
   });
 
   response.on('error', (error: string) => {
@@ -68,7 +77,7 @@ const stringResponseParser = (callback: { (resp: unknown, err: any): void; (arg0
       console.error(`HTTP RESPONSE ERROR [${response.statusCode}]`, err);
       callback(undefined, { statusCode: response.statusCode, response: resp });
     } else {
-      console.info(`HTTP RESPONSE [${response.statusCode}]`, resp);
+      console.info(`HTTP RESPONSE [${response.statusCode}]`, `-->${resp.toString()}<--`, resp);
       callback(resp, err);
     }
   });

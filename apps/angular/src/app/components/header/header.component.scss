@@ -1,11 +1,5 @@
 @import '../../../variables';
 
-$header-height: 3em;
-$padding: $header-height/8;
-$font-size: ($header-height*.3)*2;
-$header-font-color: lighten($text-color, 3%); //#E8D6AA;// lighten($text-color, 3%);
-$header-font-hover-color: #E8D6AA; //darken($text-color, 5%);
-
 .mtm-menu-action {
   margin: .25em .25em .25em .25em;
   color: $header-font-color;
@@ -29,12 +23,15 @@ $header-font-hover-color: #E8D6AA; //darken($text-color, 5%);
   }
 }
 
-.mtm-menu {
+.mtm-small-menu {
+  $pad-adjuster: .9em;
   position: fixed;
   z-index: 1;
+  left: $pad-adjuster*(-1);
   background-color: black;
-  width: 100vw;
-  height: 100vh;
+  width: calc(100vw + $pad-adjuster);
+  height: 105vh;
+  // margin-bottom: 5em;
   overflow-y: auto;
   a {
     display: block;
@@ -79,6 +76,10 @@ $header-font-hover-color: #E8D6AA; //darken($text-color, 5%);
     //   border-bottom: 1px dotted $header-font-hover-color;
     // }
   }
+}
+
+.mtn-header-center-logo-menu-fix {
+  margin-left: -1.5em;
 }
 
 .mtm-link {

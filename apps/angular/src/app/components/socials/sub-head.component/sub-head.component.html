@@ -1,0 +1,34 @@
+<div fxLayout="row" fxLayoutAlign="center" class="socials-sub-head-row">
+  <div fxFlex>&nbsp;</div>
+
+  <div [fxFlex]="sectionWidth">
+
+    <div fxLayout="row nowrap" fxLayoutAlign="center" class="socials-sub-head-action-row">
+
+      <div fxFlex *ngIf="!hideBackLink">
+        <a [routerLink]="backLink" title="{{backLinkTitle}}" class="mtm-link">
+          <i class="ai-chevron-left"></i>
+          <div>back</div>
+        </a>
+      </div>
+
+      <div fxFlex class="mtm-sub-head-title">
+        <h1 [attr.title]="title.toUpperCase()">
+          {{ title }}
+        </h1>
+      </div>
+
+      <div fxFlex *ngIf="!hideLinkOutLink">
+        <a href="{{linkOut}}" target="blank" title="{{linkOutTitle}}" class="mtm-link">
+          <i class="ai-link-out"></i>
+          <div>open</div>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div fxFlex>&nbsp;</div>
+
+</div>

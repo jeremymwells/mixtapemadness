@@ -12,8 +12,8 @@
   apiPath: ${self:custom.api-segment}
   originPath: "/${self:provider.stage}"
   apiGatewayRestApiId: ${self:service}-api-${self:provider.stage}
-  clientCommand: "nx run angular:build:development"
-  clientSrcPath: ../../../
+  # clientCommand: "nx run angular:build:production"
+  # clientSrcPath: ../../../
   # waf: ${self:service}-waf-${self:provider.stage}
   logging:
     bucket: ${self:custom.web-access-log-bucket-name}.s3.amazonaws.com 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 function parseEventHeader (headers, headerName) {
   const normalizedHeaders = Array.isArray(headers || []) ? headers : Object.keys(headers);
   const caseInsensitiveHeaderMatch = (normalizedHeaders || []).filter(x => x.toLowerCase() === headerName.toLowerCase())[0] || '';

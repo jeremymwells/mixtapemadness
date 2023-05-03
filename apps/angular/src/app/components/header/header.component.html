@@ -17,7 +17,7 @@
         (click)="toggleSmallMenuState()"
       ></i>
 
-      <div class="mtm-menu" *ngIf="smallMenuOpen" [fxHide.gt-sm]="true">
+      <div class="mtm-small-menu" *ngIf="smallMenuOpen" [fxHide.gt-sm]="true">
 
         <a class="mtm-link" [routerLink]="['/home']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
           <span>home</span>
@@ -75,10 +75,13 @@
 
     <div fxLayout="row" class="mtm-logo-container">
       <div
-        ngClass.lt-md="mtm-header-center-logo-xs"
+        [ngClass.lt-md]="{
+          'mtm-header-center-logo-xs': true,
+          'mtn-header-center-logo-menu-fix': smallMenuOpen
+        }"
         ngClass.gt-xs="mtm-header-center-logo"
       >
-        <a [routerLink]="['/home']">
+        <a [routerLink]="['/home']" (click)="smallMenuOpen ? toggleSmallMenuState(): null">
           <img [src]="logoImageSrc" (mouseover)="logoImageSrc = srcTwo" (mouseout)="logoImageSrc = srcOne" alt="Mixtape Madness Logo"/>
         </a>
       </div>

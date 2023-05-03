@@ -5,3 +5,24 @@ html, body {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  text-transform: capitalize;
+  @include nashimura;
+}
+
+.mtm-link {
+  text-decoration: none;
+  color: $header-font-color;
+  text-transform: uppercase;
+  font-size: .65em;
+  margin: .25em .75em .25em .5em;
+  @include nashimura;
+  &:hover {
+    color: $header-font-hover-color;
+    span {
+      border-bottom: 1px dotted $header-font-hover-color;
+    }
+    
+  }
+}

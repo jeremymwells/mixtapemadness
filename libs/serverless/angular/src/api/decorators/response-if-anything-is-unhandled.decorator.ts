@@ -1,3 +1,4 @@
+/* eslint-disable */
 type HttpResponse = { statusCode: number, body: string, headers?: any };
 
 const handleError = (response, callback, error) => {

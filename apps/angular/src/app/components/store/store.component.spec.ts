@@ -1,13 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreComponent } from './store.component';
+import { CommonModule } from '@angular/common';
 
-describe('HomeComponentComponent', () => {
+describe('StoreComponent', () => {
   let component: StoreComponent;
   let fixture: ComponentFixture<StoreComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StoreComponent],
+      imports: [
+        StoreComponent,
+        CommonModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(StoreComponent);

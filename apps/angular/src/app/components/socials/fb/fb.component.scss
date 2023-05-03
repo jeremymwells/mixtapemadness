@@ -1,0 +1,38 @@
+.mtm-socials-body {
+  height: 100%;
+  overflow-x: auto;
+}
+
+.mtm-yt-vid-card {
+  border: 1px solid #444343;
+  background-color: #444343;
+  margin: 15px 0 15px 0;
+  padding-left: 7.5px;
+  p {
+    padding: 0 15px 0 15px;
+  }
+}
+
+.mtm-social-icon {
+  font-size: 3em;
+  display: block;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.yt-uix-button-subscribe-branded {
+  display: none;
+}
+.mtn-social-icon-bucket {
+  text-align: center;
+  // div {
+  //   line-height: 3em;
+  //   position: absolute;
+  //   margin: 2px 0 0 10px;
+  // }
+}
+
+// .g-ytsubscribe {
+//   color: white;
+// }

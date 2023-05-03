@@ -1,3 +1,4 @@
+/* eslint-disable */
 export function convertObjectToLowerCase (obj: any) {
   if (!obj || typeof obj !== 'object') {
     return;

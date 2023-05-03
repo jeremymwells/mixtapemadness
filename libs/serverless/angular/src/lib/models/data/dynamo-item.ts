@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 export abstract class DynamoItem {
   createdDate: number;
   lastEditedDate: number;
