@@ -1,18 +1,22 @@
 
-(async function(){
-  const helpers = require('./helpers');
-  const argv = helpers.getArgs()
-  if (require('fs').existsSync('.env')){
-    require('dotenv').config();
-  }
-  const stackName = await helpers.getStackName(undefined, helpers.getResolveVariablesShim(argv));
-  const envKey = await helpers.getEnvironmentKey(undefined, helpers.getResolveVariablesShim(argv));
+(async function() {
+  let helpers = require('./helpers');
+  await helpers.exportServerless();
+  delete require.cache[require.resolve('./helpers')];
+  helpers = require('./helpers');
 
-  process.env.AWS_PROFILE = `${require('./package.json').name}-${envKey}`;
+  const argv = helpers.getArgs();
+
+  const {
+    stackName,
+  } = helpers;
+
+  process.env.MY_AWS_AKI = helpers.awsAccessKeyId;
+  process.env.MY_AWS_SAK = helpers.awsSecretAccessKey;
   process.env.DDB_TABLE_PREFIX = stackName;
   process.env.MIGRATIONS_TABLE = `${stackName}.migrations`;
 
-  const migrationsResultCode = await helpers.runProcess(`mograte ${argv.cmd}`, true);
+  const migrationsResultCode = await helpers.runProcess(`npx mograte ${argv.cmd}`, true);
 
   if (migrationsResultCode) {
     process.exit(migrationsResultCode);

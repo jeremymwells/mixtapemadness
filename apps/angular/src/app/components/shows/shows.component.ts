@@ -1,155 +1,146 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MatChipsModule } from '@angular/material/chips'
+import { Subscription, forkJoin } from 'rxjs';
+import { SubHeadComponent } from '../sub-head.component/sub-head.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { provideIcons } from '@ng-icons/core';
+import { akarIcon, akarLocation } from '@ng-icons/akar-icons';
 
 @Component({
   selector: 'mixtapemadness-shows',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    SubHeadComponent,
+    MatChipsModule,
+    FlexLayoutModule,
+  ],
+  providers: [ provideIcons({
+    akarIcon,
+    akarLocation,
+  }) ],
   templateUrl: './shows.component.html',
-  styleUrls: ['./shows.component.css'],
+  styleUrls: ['./shows.component.scss'],
 })
-export class ShowsComponent {
-
-  private _shows = [
-    {
-      date: '5/27/2023',
-      time: '7pm - 11pm',
-      notes: 'Everyones dahtahn! Theres Pirates and Steelers, and everything else. Come dahn to the North Shore, enjoy some food and beer',
-      location: {
-        name: 'Southern Tier',
-        address: 'North Shore',
-      }
-    },
-    {
-      date: '6/24/2023',
-      time: 'closed',
-      notes: '',
-      location: {
-        name: 'Private Party',
-        address: 'Boswell PA',
-      }
-    },
-    {
-      date: '7/08/2023',
-      time: '9pm - 1am',
-      notes: '',
-      location: {
-        name: 'Nova Winery',
-        address: 'Pulaski PA',
-      }
-    },
-    {
-      date: '7/13/2023',
-      time: '9pm - 1am',
-      notes: 'Dont nobody know what this is about. We\'re playing a retirement community center or sum\'n?',
-      location: {
-        name: 'Quality Life Services',
-        address: 'Chicora, PA',
-      }
-    },
-    {
-      date: '7/22/2023',
-      time: '9pm - 1am',
-      notes: 'Italian food from the old country. Great people. Great atmosphere.',
-      location: {
-        name: 'Riardo\'s',
-        address: 'New Castle',
-      }
-    },
-    {
-      date: '8/25/2023',
-      time: '9pm - 1am',
-      notes: 'AAAAwwweee SHIT!',
-      location: {
-        name: 'Nickie Fest (Day 1)',
-        address: 'Boswell PA',
-      }
-    },
-    {
-      date: '8/26/2023',
-      time: '9pm - 1am',
-      notes: '',
-      location: {
-        name: 'Nickie Fest (Day 2)',
-        address: 'Boswell PA',
-      }
-    },
-    {
-      date: '9/09/2023',
-      time: '9pm - 1am',
-      notes: '',
-      location: {
-        name: 'White Township Inn',
-        address: 'Beaver Falls PA',
-      }
-    },
-    {
-      date: '9/23/2023',
-      time: '7pm - 11pm',
-      notes: '',
-      location: {
-        name: 'Southern Tier',
-        address: 'North Shore, Pittsburgh, PA',
-      }
-    },
-    {
-      date: '9/29/2023',
-      time: '9pm - 1am',
-      notes: '',
-      location: {
-        name: 'Mischief On The Mountain',
-        address: 'Boswell PA',
-      }
-    },
-    {
-      date: '10/07/2023',
-      time: 'closed',
-      notes: '',
-      location: {
-        name: 'Private Party',
-        address: 'Boswell PA',
-      }
-    },
-    {
-      date: '10/14/2023',
-      time: '9pm - 1am',
-      notes: 'Best wings around. We\'ll be there, fuckin about, playing the digs from the 60s, 70s, 80s and 90s',
-      location: {
-        name: 'Burg Bar',
-        address: 'West Pittsburgh PA',
-      }
-    },
-    {
-      date: '10/28/2023',
-      time: '9pm - 1am',
-      notes: 'This is the gig to catch. Usually the gig that closes the season for Mixtape Madness. Everyone dresses up and gets really loose. Come party.',
-      location: {
-        name: 'T-Bones Paramount',
-        address: 'Wampum PA',
-      }
-    },
-  ];
+export class ShowsComponent implements OnDestroy {
+  private sub = new Subscription();
+  private _showYears = [2022, 2023, 2024];
+  private _shows = [] as any[];
 
   pastShows = [] as any;
   futureShows = [] as any;
-  constructor() {
-    console.log(JSON.stringify(this._shows, null, 4));
+  showPastShows = false;
+  displayShows = [] as any;
+  title = '';
+
+  constructor(private http: HttpClient) {
+    this.sub.add(
+      forkJoin(
+        this._showYears.map((showYear) => 
+          this.http.get(`api/shows?year=${showYear}`)
+        )
+      )
+      .subscribe((showsByYear: any) => {
+        showsByYear.forEach((showYearShows: any[]) => {
+          this._shows = [
+            ...this._shows,
+            ...showYearShows
+          ];
+        })
+
+        this.sortAndDivideShows();
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  getDisplayDate(show: any) {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const showDate = new Date(show.dateAndTime);
+    const month = monthNames[showDate.getMonth()];
+    const date = showDate.getDate();
+    const year = showDate.getFullYear()
+    return String(`${month} ${date}, ${year}`);
+  }
+
+  getDisplayAddress(show: any) {
+    const address = show.address;
+    const city = show.city;
+    const state = show.state;
+    const cityState = [city, state].filter(x => x).join(' ');
+    const addressCityState = [
+      address,
+      cityState
+    ]
+    .filter(x => x)
+    .join(', ')
+    return addressCityState;
+  }
+
+  getEncodedAddress(show: any) {
+    return encodeURI(this.getDisplayAddress(show))
+  }
+
+  getEncodedVenue(show: any) {
+    return encodeURI(show.venue)
+  }
+
+  getDuration(show: any) {
+    const showDate = new Date(show.dateAndTime);
+    const endDate = new Date(show.dateAndTime);
+    endDate.setTime(showDate.getTime() + (show.duration*60*60*1000));
+    const startTime = showDate.toLocaleTimeString('en-US').replace(':00:00', '');
+    const endTime = endDate.toLocaleTimeString('en-US').replace(':00:00', '');
+    return String(`${startTime} - ${endTime}`);
+    
+  }
+
+  toggleShows() {
+    this.showPastShows = !this.showPastShows;
+    this.setTitle();
+    this.setDisplayShows();
+  }
+
+  setDisplayShows() {
+    this.displayShows = this.showPastShows ?
+      this.pastShows :
+      this.futureShows;
+  }
+
+  setTitle() {
+    this.title = this.showPastShows ? 'Previous Shows' : 'Upcoming Shows';
+  }
+
+  sortAndDivideShows() {
     this._shows = this._shows
       .sort((a, b) => {
-        const aDate = new Date(a.date).getTime();
-        const bDate = new Date(b.date).getTime();
+        const aDate = new Date(a.dateAndTime).getTime();
+        const bDate = new Date(b.dateAndTime).getTime();
         const abOrder = ((aDate < bDate) ? -1 : 1);
         return (aDate === bDate) ? 0 : abOrder;
       });
 
     this.futureShows = this._shows
       .filter((show: any) => {
-        return new Date(show.date).getTime() >= new Date().getTime();
+        return new Date(show.dateAndTime).getTime() >= new Date().getTime();
       });
 
     this.pastShows = this._shows
       .filter((show: any) => {
-        return new Date(show.date).getTime() < new Date().getTime();
-      });
+        return new Date(show.dateAndTime).getTime() < new Date().getTime();
+      }).reverse();
+
+    this.setDisplayShows();
+    this.setTitle();
+    console.log('pastShows', this.pastShows);
+    console.log('futureShows', this.futureShows);
   }
 }

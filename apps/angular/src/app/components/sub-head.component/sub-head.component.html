@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center" class="socials-sub-head-row">
-  <div fxFlex>&nbsp;</div>
+  <div fxFlex [fxHide.lt-md]="true">&nbsp;</div>
 
-  <div [fxFlex]="sectionWidth">
+  <div fxFlex.gt-md="50" fxFlex.lt-md="80">
 
     <div fxLayout="row nowrap" fxLayoutAlign="center" class="socials-sub-head-action-row">
 
@@ -12,7 +12,7 @@
         </a>
       </div>
 
-      <div fxFlex class="mtm-sub-head-title">
+      <div fxFlex class="mtm-sub-head-title" ngClass.lt-md="mtm-sub-head-title-small">
         <h1 [attr.title]="title.toUpperCase()">
           {{ title }}
         </h1>
@@ -24,11 +24,12 @@
           <div>open</div>
         </a>
       </div>
+      <ng-content select="[rightContent]"></ng-content>
 
     </div>
 
   </div>
 
-  <div fxFlex>&nbsp;</div>
+  <div fxFlex [fxHide.lt-md]="true">&nbsp;</div>
 
 </div>

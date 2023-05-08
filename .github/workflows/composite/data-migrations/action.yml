@@ -21,13 +21,16 @@ runs:
       - id: migrationDelta
         shell: bash
         # run: echo ::set-output name=migrationDelta::$(npm run --silent migrations -- --cmd=delta --stage=${{ inputs.stage }})
-        run: echo "migrationDelta=$(npm run --silent migrations -- --cmd=delta --stage=${{ inputs.stage }})" >> $GITHUB_OUTPUT
+        run: |
+          cd ./libs/serverless/angular;
+          echo "migrationDelta=$( npm run migrations -- --cmd=delta --stage=${{ inputs.stage }} )" >> $env:GITHUB_OUTPUT;
+          cd -;
 
-      - run: npm run --silent migrations -- --cmd=up --stage=${{ inputs.stage }}
+      - run: npm run migrations -- --cmd=up --stage=${{ inputs.stage }}
         shell: bash
 
       - if: ${{ failure() && steps.migrationDelta.outputs.migrationDelta != '0' }}
         shell: bash
-        run: npm run --silent migrations -- --cmd='down ${{ steps.migrationDelta.outputs.migrationDelta }}' --stage=${{ inputs.stage }}
+        run: npm run migrations -- --cmd='down ${{ steps.migrationDelta.outputs.migrationDelta }}' --stage=${{ inputs.stage }}
 
       - uses: ./.github/workflows/composite/deploy-teardown

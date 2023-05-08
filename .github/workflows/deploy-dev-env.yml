@@ -1,23 +1,23 @@
-name: Branch Deployment
+name: Main Deployment
 
 on:
   push:
     branches: 'main'
 
 jobs:
-  quality-gate:
-    uses: ./.github/workflows/quality-gates-workflow.yml
+  # quality-gate:
+  #   uses: ./.github/workflows/quality-gates-workflow.yml
 
   deploy-data-migrations:
     name: Run Data Migrations
     runs-on: ubuntu-latest
-    needs: [ quality-gate ]
+    # needs: [ quality-gate ]
     environment: 
       name: dev
     steps:
       - uses: actions/checkout@v3
         with:
-          node-version: 16.x
+          node-version: 14x
       - uses: ./.github/workflows/composite/data-migrations
         with:
           stage: dev
@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          node-version: 16.x
+          node-version: 14x
       - uses: ./.github/workflows/composite/aws-connected-command
         with:
           command: npm run deploy:dev

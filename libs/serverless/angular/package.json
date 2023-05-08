@@ -1,5 +1,5 @@
 {
-  "name": "@mixtapemadness/serverless/angular",
+  "name": "mixtapemadness-serverless-angular",
   "version": "0.0.1",
   "type": "commonjs",
   "domain": {
@@ -10,37 +10,44 @@
   "api-prefix": "api",
   "scripts": {
     "start": "nx run serverless-angular:serve",
-    "deploy:nonprod": "nx run serverless-angular:deploy",
-    "deploy:prod": "nx run serverless-angular:deploy --stage=prod",
-    "deploy:dev": "nx run serverless-angular:deploy --stage=dev"
+    "migrations": "node ./scripts/migrate.js",
+    "deploy:nonprod": "npx serverless deploy --stage=nonprod",
+    "deploy:prod": "npx serverless deploy --stage=prod",
+    "deploy:dev": "npx sls deploy --stage=dev"
   },
   "devDependencies": {
-    "@animus-bi/fs-sls": "^0.9.1-beta.2",
-    "@types/aws-lambda": "^8.10.17",
-    "@types/node": "^10.17.60",
-    "@types/serverless": "^1.72.5",
+    "@animus-bi/fs-sls": "0.9.1-beta.2",
+    "@types/aws-lambda": "8.10.17",
+    "@types/node": "10.17.60",
+    "@types/serverless": "1.72.5",
     "camelify": "^0.1.0",
-    "dotenv": "^16.0.3",
-    "minimist": "^1.2.8",
-    "mograte": "^2.0.2",
-    "serverless": "^3.10.2",
-    "serverless-cloudside-plugin": "^1.0.6",
-    "serverless-deployment-bucket": "^1.5.2",
-    "serverless-export-env": "github:arabold/serverless-export-env",
-    "serverless-offline": "^12.0.4",
-    "serverless-s3-cleaner": "^2.0.0",
-    "serverless-webpack": "^5.3.3",
+    "dotenv": "16.0.3",
+    "export-serverless": "^0.9.1-beta.1",
+    "lodash.get": "^4.4.2",
+    "minimist": "1.2.8",
+    "mograte": "2.0.2",
+    "serverless": "3.10.2",
+    "serverless-cloudside-plugin": "1.0.6",
+    "serverless-deployment-bucket": "1.5.2",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-offline": "12.0.4",
+    "serverless-s3-cleaner": "2.0.0",
+    "serverless-webpack": "5.3.3",
     "shelljs": "^0.8.5",
-    "ts-loader": "^5.3.3",
-    "ts-node": "^10.8.0",
-    "typescript": "^3.2.4",
+    "strip-color": "^0.1.0",
+    "ts-loader": "5.3.3",
+    "ts-node": "10.8.0",
+    "typescript": "4.9.5",
     "url-safe-string": "^1.1.0",
-    "webpack": "^4.44.2",
-    "webpack-node-externals": "^1.7.2"
+    "webpack": "4.44.2",
+    "webpack-node-externals": "1.7.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.1123.0",
-    "axios": "^1.4.0",
-    "tslib": "^2.5.0"
+    "@aws-sdk/client-dynamodb": "3.301.0",
+    "@aws-sdk/credential-providers": "^3.329.0",
+    "@aws-sdk/lib-dynamodb": "3.301.0",
+    "axios": "1.4.0",
+    "pluralize": "8.0.0",
+    "tslib": "2.5.0"
   }
 }

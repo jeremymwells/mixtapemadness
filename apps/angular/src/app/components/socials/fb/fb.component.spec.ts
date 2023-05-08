@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgIconComponent } from '@ng-icons/core';
-import { SubHeadComponent } from '../sub-head.component/sub-head.component';
+import { SubHeadComponent } from '../../sub-head.component/sub-head.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('FBComponent', () => {

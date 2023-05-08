@@ -1,7 +1,7 @@
 name: Deploy Prod Env
 
 env:
-  TARGET_INTEGRATION_BRANCH: master
+  TARGET_INTEGRATION_BRANCH: main
   TAG_REVERSION_TOKEN: '-revert-'
 
 on:
@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          node-version: 16.x
+          node-version: 14x
       - uses: ./.github/workflows/composite/prod-tag-gate
         with:
           reversionToken:  ${{ env.TAG_REVERSION_TOKEN }}
@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          node-version: 16.x
+          node-version: 14x
       - uses: ./.github/workflows/composite/data-migrations
         with:
           stage: prod
@@ -55,8 +55,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          node-version: 16.x
-        with:
+          node-version: 14x
           ref: ${{ github.head_ref }}
           fetch-depth: 0
 

@@ -12,6 +12,21 @@ $header-font-hover-color: #E8D6AA; //darken($text-color, 5%);
   src: url("assets/fonts/nashimura.otf");
 }
 
+@font-face {
+  font-family: "kameron";
+  src: url("assets/fonts/Kameron/Kameron-Bold.ttf");
+}
+
+@font-face {
+  font-family: "kameron";
+  src: url("assets/fonts/Kameron/Kameron-Regular.ttf");
+}
+
+
 @mixin nashimura {
   font-family: "nashimura"; //, Helvetica, "Trebuchet MS", Verdana, sans-serif;
+}
+
+@mixin kameron {
+  font-family: "kameron";
 }

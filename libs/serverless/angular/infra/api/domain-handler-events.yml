@@ -10,6 +10,22 @@ appMessage:
         parameters:
           querystrings:
             message: true
+
+
+shows:
+  name: ${self:provider.stackName}-app-shows
+  handler: ./src/api/handlers/shows.get
+  events:
+  - http:
+      path: api/shows
+      private: false
+      method: get
+      request:
+        parameters:
+          querystrings:
+            year: true
+
+
 social:
   name: ${self:provider.stackName}-app-social
   handler: ./src/api/handlers/youtube.getVideos

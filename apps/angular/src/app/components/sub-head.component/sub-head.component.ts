@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router';
     akarLinkOut
   })],
   templateUrl: './sub-head.component.html',
-  styleUrls: ['./sub-head.component.scss', '../socials.component.scss'],
+  styleUrls: ['./sub-head.component.scss']
 })
 export class SubHeadComponent {
   @Input() backLink = [''];

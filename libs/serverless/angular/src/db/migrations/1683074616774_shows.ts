@@ -1,37 +1,26 @@
 /* eslint-disable */
 import { MigrationContext } from 'mograte';
+import { Show } from '../models';
+import { ShowsRepo } from '../repo/shows.repo';
 const pfx = process.env.DDB_TABLE_PREFIX;
 
 const showsTable = {
+  TableName: `${pfx}.shows`,
   KeySchema: [
     { AttributeName: 'year', KeyType: 'HASH' },
-    { AttributeName: 'dateAndTimes',  KeyType: 'RANGE' },
+    { AttributeName: 'dateAndTime',  KeyType: 'RANGE' },
   ],
   AttributeDefinitions: [
     { AttributeName: 'year', AttributeType: 'N' },
-    { AttributeName: 'dateAndTimes', AttributeType: 'N' },
-    { AttributeName: 'title', AttributeType: 'S' },
-    { AttributeName: 'city', AttributeType: 'S' },
-    { AttributeName: 'state', AttributeType: 'S' },
-    { AttributeName: 'venue', AttributeType: 'S' },
+    { AttributeName: 'dateAndTime', AttributeType: 'S' },
 
-    { AttributeName: 'searchTitle', AttributeType: 'S' },
     { AttributeName: 'searchVenue', AttributeType: 'S' },
     { AttributeName: 'searchCity', AttributeType: 'S' },
     { AttributeName: 'searchState', AttributeType: 'S' },
     
   ],
-  GlobalSecondaryIndexes: [{
-      IndexName: 'searchTitle',
-      KeySchema: [{
-        AttributeName: 'title',
-        KeyType: 'HASH'
-      }],
-      Projection: {
-        ProjectionType: 'ALL'
-      }
-    },{ 
-      IndexName: 'searchVenue',
+  GlobalSecondaryIndexes: [{ 
+      IndexName: '_searchVenue',
       KeySchema: [{
         AttributeName: 'searchVenue',
         KeyType: 'HASH'
@@ -40,18 +29,18 @@ const showsTable = {
         ProjectionType: 'ALL'
       }
     },{
-      IndexName: 'searchCity',
+      IndexName: '_searchCity',
       KeySchema: [{
-        AttributeName: 'city',
+        AttributeName: 'searchCity',
         KeyType: 'HASH'
       }],
       Projection: {
         ProjectionType: 'ALL'
       }
     },{
-      IndexName: 'searchState',
+      IndexName: '_searchState',
       KeySchema: [{
-        AttributeName: 'state',
+        AttributeName: 'searchState',
         KeyType: 'HASH'
       }],
       Projection: {
@@ -59,14 +48,14 @@ const showsTable = {
       }
   }],
   BillingMode: 'PAY_PER_REQUEST',
-  TableName: `${pfx}.shows`,
   StreamSpecification: {
     StreamEnabled: false
   }
 };
 export default {
   up: async (context: MigrationContext): Promise<any> => {
-    const shows = require('./seed/shows.json');
+    await context.table.createAsync(showsTable as any);
+    const shows = require('./seed/shows.json').map(x => new Show().fromItem(x)?.toItem());
     await context.item.writeAsync(shows, showsTable.TableName);
   },
   down: async (context: MigrationContext): Promise<any> => {

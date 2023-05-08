@@ -1,16 +1,18 @@
 
 (async function() {
-  const helpers = require('./helpers');
+  let helpers = require('./helpers');
+  await helpers.exportServerless();
+  delete require.cache[require.resolve('./helpers')];
+  helpers = require('./helpers');
   
   const argv = helpers.getArgs();
 
   const deployOrRemove = argv.r || argv.remove ? 'remove': 'deploy';
 
-  const gitBranch = await helpers.getGitBranch(process.env.GITHUB_REF);
+  process.env.AWS_ACCESS_KEY_ID = helpers.awsAccessKeyId;
+  process.env.AWS_SECRET_ACCESS_KEY = helpers.awsSecretAccessKey;
 
-  const stage = argv.stage || gitBranch;
-
-  const deployResultCode = await helpers.runProcess(`SLS_DEBUG=* sls ${deployOrRemove} --stage ${stage}`);
+  const deployResultCode = await helpers.runProcess(`SLS_DEBUG=* sls ${deployOrRemove} --stage ${argv.stage}`);
 
   if (deployResultCode) {
     process.exit(deployResultCode);

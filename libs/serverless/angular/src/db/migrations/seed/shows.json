@@ -1,119 +1,158 @@
 [
   {
-      "date": "5/27/2023",
-      "time": "7pm - 11pm",
-      "notes": "Everyones dahtahn! Theres Pirates and Steelers, and everything else. Come dahn to the North Shore, enjoy some food and beer",
-      "location": {
-          "name": "Southern Tier",
-          "address": "North Shore"
-      }
+    "dateAndTime": "02/25/2023 21:00",
+    "duration": 3,
+    "phone": "+18142886378",
+    "address": "510 Tire Hill Rd",
+    "city": "Johnstown",
+    "state": "PA",
+    "venue": "Crow's Nest"
   },
   {
-      "date": "6/24/2023",
-      "time": "closed",
-      "notes": "",
-      "location": {
-          "name": "Private Party",
-          "address": "Boswell PA"
-      }
+    "dateAndTime": "03/04/2023 21:00",
+    "duration": 4,
+    "phone": "+17245462108",
+    "address": "5095 W State St",
+    "city": "Edinburg",
+    "state": "PA",
+    "venue": "Nite Trax"
   },
   {
-      "date": "7/08/2023",
-      "time": "9pm - 1am",
-      "notes": "",
-      "location": {
-          "name": "Nova Winery",
-          "address": "Pulaski PA"
-      }
+    "dateAndTime": "03/11/2023 21:00",
+    "duration": 4,
+    "phone": "+17245354322",
+    "address": "438 Oswald St",
+    "city": "Wampum",
+    "state": "PA",
+    "venue": "Chewton Polish Club"
   },
   {
-      "date": "7/13/2023",
-      "time": "9pm - 1am",
-      "notes": "Dont nobody know what this is about. We're playing a retirement community center or sum'n?",
-      "location": {
-          "name": "Quality Life Services",
-          "address": "Chicora, PA"
-      }
+    "dateAndTime": "03/25/2023 21:00",
+    "duration": 3,
+    "phone": "+17244069237",
+    "address": "111 Arrowhead Dr",
+    "city": "Slippery Rock",
+    "state": "PA",
+    "venue": "North Country Cannery & Taproom"
   },
   {
-      "date": "7/22/2023",
-      "time": "9pm - 1am",
-      "notes": "Italian food from the old country. Great people. Great atmosphere.",
-      "location": {
-          "name": "Riardo's",
-          "address": "New Castle"
-      }
+    "dateAndTime": "04/15/2023 21:00",
+    "duration": 3,
+    "phone": "+17245358999",
+    "address": "400 Beaver St",
+    "city": "Wampum",
+    "state": "PA",
+    "venue": "T-Bones Paramount"
   },
   {
-      "date": "8/25/2023",
-      "time": "9pm - 1am",
-      "notes": "AAAAwwweee SHIT!",
-      "location": {
-          "name": "Nickie Fest (Day 1)",
-          "address": "Boswell PA"
-      }
+    "dateAndTime": "04/22/2023 19:00",
+    "duration": 3,
+    "phone": "+14123012337",
+    "address": "316 N Shore Dr",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "venue": "Southern Tier Brewing"
   },
   {
-      "date": "8/26/2023",
-      "time": "9pm - 1am",
-      "notes": "",
-      "location": {
-          "name": "Nickie Fest (Day 2)",
-          "address": "Boswell PA"
-      }
+    "dateAndTime": "05/27/2023 19:00",
+    "duration": 3,
+    "phone": "+14123012337",
+    "address": "316 N Shore Dr",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "venue": "Southern Tier Brewing"
   },
   {
-      "date": "9/09/2023",
-      "time": "9pm - 1am",
-      "notes": "",
-      "location": {
-          "name": "White Township Inn",
-          "address": "Beaver Falls PA"
-      }
+    "dateAndTime": "06/24/2023 21:00",
+    "duration": 4,
+    "phone": "",
+    "address": "",
+    "city": "Boswell",
+    "state": "PA",
+    "venue": "Private Event"
   },
   {
-      "date": "9/23/2023",
-      "time": "7pm - 11pm",
-      "notes": "",
-      "location": {
-          "name": "Southern Tier",
-          "address": "North Shore, Pittsburgh, PA"
-      }
+    "dateAndTime": "07/08/2023 21:00",
+    "duration": 4,
+    "phone": "+17246987026",
+    "address": "1474 State Route 208",
+    "city": "Pulaski",
+    "state": "PA",
+    "venue": "Nova Winery"
+  },
+
+  {
+    "dateAndTime": "07/13/2023 21:00",
+    "duration": 4,
+    "phone": "+18772953747",
+    "address": "160 Medical Center Rd",
+    "city": "Chicora",
+    "state": "PA",
+    "venue": "Quality Life Services"
   },
   {
-      "date": "9/29/2023",
-      "time": "9pm - 1am",
-      "notes": "",
-      "location": {
-          "name": "Mischief On The Mountain",
-          "address": "Boswell PA"
-      }
+    "dateAndTime": "07/22/2023 21:00",
+    "duration": 4,
+    "phone": "+17246521750",
+    "address": "1223 E Washington St",
+    "city": "New Castle",
+    "state": "PA",
+    "venue": "Riardo's"
   },
   {
-      "date": "10/07/2023",
-      "time": "closed",
-      "notes": "",
-      "location": {
-          "name": "Private Party",
-          "address": "Boswell PA"
-      }
+    "dateAndTime": "08/25/2023 21:00",
+    "duration": 4,
+    "phone": "",
+    "address": "",
+    "city": "Boswell",
+    "state": "PA",
+    "venue": "Nickiefest"
   },
   {
-      "date": "10/14/2023",
-      "time": "9pm - 1am",
-      "notes": "Best wings around. We'll be there, fuckin about, playing the digs from the 60s, 70s, 80s and 90s",
-      "location": {
-          "name": "Burg Bar",
-          "address": "West Pittsburgh PA"
-      }
+    "dateAndTime": "08/26/2023 21:00",
+    "duration": 4,
+    "phone": "",
+    "address": "",
+    "city": "Boswell",
+    "state": "PA",
+    "venue": "Nickiefest"
   },
   {
-      "date": "10/28/2023",
-      "time": "9pm - 1am",
-      "notes": "This is the gig to catch. Usually the gig that closes the season for Mixtape Madness. Everyone dresses up and gets really loose. Come party.",
-      "location": {
-          "name": "T-Bones Paramount",
-          "address": "Wampum PA"
-      }
+    "dateAndTime": "09/09/2023 21:00",
+    "duration": 4,
+    "phone": "+17248431785",
+    "address": "2518 Clayton Rd",
+    "city": "Beaver Falls",
+    "state": "PA",
+    "venue": "White Township Inn"
+  },
+  {
+    "dateAndTime": "09/23/2023 19:00",
+    "duration": 3,
+    "phone": "+14123012337",
+    "address": "316 N Shore Dr",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "venue": "Southern Tier Brewing"
+  },
+
+  {
+    "dateAndTime": "10/07/2023 21:00",
+    "duration": 4,
+    "phone": "",
+    "address": "",
+    "city": "Greenville",
+    "state": "PA",
+    "venue": "Private Event"
+  },
+
+  {
+    "dateAndTime": "10/28/2023 21:00",
+    "duration": 4,
+    "phone": "+17245358999",
+    "address": "400 Beaver St",
+    "city": "Wampum",
+    "state": "PA",
+    "venue": "T-Bones Paramount"
   }
 ]

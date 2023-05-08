@@ -10,7 +10,7 @@ import {
   akarLinkOut,
 } from '@ng-icons/akar-icons';
 import { RouterModule } from '@angular/router';
-import { SubHeadComponent } from '../sub-head.component/sub-head.component';
+import { SubHeadComponent } from '../../sub-head.component/sub-head.component';
 
 @Component({
   selector: 'mixtapemadness-socials',

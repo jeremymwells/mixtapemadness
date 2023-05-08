@@ -24,3 +24,6 @@ tmp
 mograte
 cypress/videos
 cypress/screenshots
+
+
+.service.config.json
