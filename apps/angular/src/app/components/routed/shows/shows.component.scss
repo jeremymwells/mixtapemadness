@@ -107,6 +107,9 @@ h3 {
 .mtm-show-date {
   color: #e8aaaa; //  $header-font-hover-color;
   margin-top: .15em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mtm-show-row {
@@ -129,6 +132,7 @@ h3 {
   margin: 0 0 0 0;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mtm-upcoming {
@@ -136,4 +140,32 @@ h3 {
   &:hover {
     cursor: pointer;
   }
+}
+
+.nudger-sm {
+  position: absolute;
+  right: 2.5em;
+  margin-top: -1em;
+  div {
+    color: white;
+    white-space: nowrap;
+    @include nashimura;
+    font-size: .7em;
+  }
+}
+
+.nudger {
+  position: absolute;
+  right: 18%;
+  margin-top: -1.2em;
+  div {
+    color: white;
+    white-space: nowrap;
+    @include nashimura;
+    font-size: .7em;
+  }
+}
+
+.nudge-fix {
+  margin-right: -1em;
 }

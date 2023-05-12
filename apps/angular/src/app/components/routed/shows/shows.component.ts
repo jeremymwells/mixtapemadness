@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Subscription, forkJoin } from 'rxjs';
 import { SubHeadComponent } from '../../general-use/sub-head.component/sub-head.component';
 import { FlexLayoutModule } from '@angular/flex-layout';

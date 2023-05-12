@@ -1,50 +1,24 @@
 <mixtapemadness-sub-head>
 
-  <h1 fxHide.lt-md="true" centerContent class="mtm-upcoming" (click)="toggleShows()" title="View {{getTitle(!showPastShows)}}">
+  <h1 fxHide.lt-md="true" centerContent class="mtm-upcoming" title="View {{getTitle(!showPastShows)}}">
     {{ title }}
   </h1>
 
-  <h2 fxHide.gt-sm="true" centerContent class="mtm-upcoming" (click)="toggleShows()" title="View {{getTitle(!showPastShows)}}">
+  <h2 fxHide.gt-sm="true" centerContent class="mtm-upcoming" title="View {{getTitle(!showPastShows)}}">
     {{ title }}
   </h2>
 
-  <mat-slide-toggle [checked]="showPastShows"></mat-slide-toggle>
-
-  <!-- <div
-    rightContent
-    class="mtm-chip-select">
-
-    <div
-      [fxHide]="showPastShows"
-      [ngClass]="{
-        'mtm-chip-option': true,
-        'mtm-chip-unselected': showPastShows
-      }"
-      [ngClass.lt-md]="{
-        'mtm-chip-option-lt-md': true 
-      }"
-      title="Click To View Past Shows"
-      (click)="toggleShows()"
+  <div class="left" rightContent ngClass.lt-md="nudger-sm" ngClass.gt-sm="nudger" >
+    <mat-slide-toggle
+      [checked]="showPastShows"
+      color="info"
+      (change)="toggleShows()"
     >
-      <i class="ai-check"></i> Upcoming
+    </mat-slide-toggle>
+    <div [ngClass]="{ 'nudge-fix': showPastShows }">
+      {{ showPastShows ? 'view upcoming' : 'view past' }}
     </div>
-
-    <div
-      [fxHide]="!showPastShows"
-      [ngClass]="{
-        'mtm-chip-option': true,
-        'mtm-chip-unselected': !showPastShows
-      }"
-      [ngClass.lt-md]="{
-        'mtm-chip-option-lt-md': true 
-      }"
-      title="Click To View Upcoming Shows"
-      (click)="toggleShows()"
-    >
-      <i class="ai-check"></i> Past
-    </div>
-
-  </div> -->
+  </div>
 
 </mixtapemadness-sub-head>
 
@@ -65,7 +39,7 @@
       <div fxFlex="12.5">&nbsp;</div>
 
 
-      <div fxFlex class="mtm-show-part">
+      <div fxFlex="67.5" class="mtm-show-part">
 
         <div fxFlex="30">
 
@@ -127,9 +101,6 @@
       *ngFor="let show of displayShows;"
       class="mtm-show-row"
     > 
-
-      <div fxFlex="5">&nbsp;</div>
-      <!-- fxLayout="column" fxLayoutAlign="start stretch" -->
       <div fxFlex class="mtm-show-part">
 
         <div fxLayout="row nowrap" fxLayoutAlign="space-between center" class="">
@@ -142,7 +113,7 @@
         </div>
 
         <div fxLayout="row nowrap" fxLayoutAlign="space-between center" class="mtm-shows-right">
-          <h2 fxFlex class="right mtm-venue">
+          <h2 fxFlex="80" class="right mtm-venue">
             {{show.venue}}
           </h2>
           <div fxFlex class="mtm-shows-left left">
@@ -160,8 +131,6 @@
         </div>
 
       </div>
-
-      <div fxFlex="5">&nbsp;</div>
 
     </div>
   </div>

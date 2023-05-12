@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { YouTubePlayerModule } from "@angular/youtube-player";
@@ -10,6 +10,7 @@ import {
   akarLinkOut,
 } from '@ng-icons/akar-icons';
 import { RouterModule } from '@angular/router';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'mixtapemadness-sub-head',
@@ -20,7 +21,8 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     YouTubePlayerModule,
     FlexLayoutModule,
-    NgIconComponent
+    NgIconComponent,
+    MatSlideToggleModule,
   ],
   providers: [provideIcons({
     akarIcon,
