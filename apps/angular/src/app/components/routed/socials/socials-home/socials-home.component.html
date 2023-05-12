@@ -1,0 +1,41 @@
+<mixtapemadness-sub-head>
+
+  <!-- <mixtapemadness-link
+    leftContent
+    icon="ai-chevron-left"
+    smallText="back"
+    class="social-link"
+  >
+  </mixtapemadness-link> -->
+
+  <h1 centerContent [attr.title]="'Check us out on social media!'.toUpperCase()">
+    Check us out on social media!
+  </h1>
+
+  <!-- <mixtapemadness-link
+    rightContent
+    icon="ai-link-out"
+    smallText="open"
+    class="social-link"
+  >
+  </mixtapemadness-link> -->
+
+</mixtapemadness-sub-head>
+
+<div fxLayout="row wrap" fxLayoutAlign="center stretch"  fxFill class="mtm-socials-row">
+
+  <div fxFlex>
+    <a class="mtn-social-icon-bucket mtm-link" [routerLink]="['../yt']">
+      <i class="ai-youtube-fill mtm-social-icon"></i>
+      <span>YOUTUBE</span>
+    </a>
+  </div>
+
+  <div fxFlex>
+    <a class="mtn-social-icon-bucket mtm-link" [routerLink]="['../fb']">
+      <i class="ai-facebook-fill mtm-social-icon"></i>
+      <span>FACEBOOK</span>
+    </a>
+  </div>
+
+</div>

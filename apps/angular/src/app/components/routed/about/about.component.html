@@ -1,0 +1,30 @@
+<mixtapemadness-sub-head
+  *ngIf="personOrPersons"
+>
+  <h1 centerContent>
+    {{ personOrPersons.title }}
+  </h1>
+</mixtapemadness-sub-head>
+
+
+
+
+<router-outlet></router-outlet>
+
+<!-- <div *ngIf="personOrPersons">
+  <p *ngFor="let line of personOrPersons.writeup">
+    {{ line }}
+  </p>
+</div>
+<div *ngIf="personOrPersons.isUs">
+  <div *ngFor="let sub of subjects">
+    <div *ngIf="sub.title !== currentSubject.title">
+      <img
+        style="max-width: 150px;"
+        [attr.src]="sub.currentPic"
+        (mouseover)="swapImage(sub)"
+        (mouseout)="swapImage(sub)"
+      />
+    </div>
+  </div>
+</div> -->

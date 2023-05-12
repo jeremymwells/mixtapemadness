@@ -1,0 +1,111 @@
+<div fxLayout="row" fxLayoutAlign="space-between" class="mtm-header">
+  <div fxLayout="row">
+    <div> 
+      <i
+        class="ai-three-line-horizontal mtm-menu-action mtm-menu-action-float"
+        
+        *ngIf="!smallMenuOpen"
+
+        [fxHide.gt-sm]="true"
+        (click)="toggleSmallMenuState()"
+      ></i>
+      <i
+        class="ai-cross mtm-menu-action"
+
+        *ngIf="smallMenuOpen"
+        [fxHide.gt-sm]="true"
+        (click)="toggleSmallMenuState()"
+      ></i>
+
+      <div class="mtm-small-menu" *ngIf="smallMenuOpen" [fxHide.gt-sm]="true">
+
+        <a class="mtm-link" [routerLink]="['/home']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>home</span>
+        </a>
+    
+        <a class="mtm-link" [routerLink]="['/about']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>about</span>
+        </a>
+    
+        <a class="mtm-link" [routerLink]="['/shows']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>shows</span>
+        </a>
+    
+        <a class="mtm-link" [routerLink]="['/socials']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>social media</span>
+        </a>
+
+        <a class="mtm-link" [routerLink]="['/video']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>video</span>
+        </a>
+    
+        <a class="mtm-link" [routerLink]="['/subscribe']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>subscribe</span>
+        </a>
+    
+        <a class="mtm-link" [routerLink]="['/store']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>store</span>
+        </a>
+    
+        <a class="mtm-link" [routerLink]="['/contact']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>contact</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between">
+
+    <a class="mtm-link" [routerLink]="['/home']" [fxHide.lt-md]="true" routerLinkActive="active-link">
+      <span>home</span>
+    </a>
+
+    <a class="mtm-link" [routerLink]="['/about']" [fxHide.lt-md]="true" routerLinkActive="active-link">
+      <span>about</span>
+    </a>
+
+    <a class="mtm-link" [routerLink]="['/shows']" [fxHide.lt-md]="true" routerLinkActive="active-link">
+      <span>shows</span>
+    </a>
+
+    <a class="mtm-link" [routerLink]="['/socials']" [fxHide.lt-md]="true" routerLinkActive="active-link">
+      <span>social media</span>
+    </a>
+
+    <div fxLayout="row" class="mtm-logo-container">
+      <div
+        [ngClass.lt-md]="{
+          'mtm-header-center-logo-xs': true,
+          'mtn-header-center-logo-menu-fix': smallMenuOpen
+        }"
+        ngClass.gt-xs="mtm-header-center-logo"
+      >
+        <a [routerLink]="['/home']" (click)="smallMenuOpen ? toggleSmallMenuState(): null">
+          <img [src]="logoImageSrc" (mouseover)="logoImageSrc = srcTwo" (mouseout)="logoImageSrc = srcOne" alt="Mixtape Madness Logo"/>
+        </a>
+      </div>
+    </div>
+
+    <a class="mtm-link" [routerLink]="['/video']" [fxHide.lt-md]="true" routerLinkActive="active-link">
+      <span>video</span>
+    </a>
+
+    <a class="mtm-link" [routerLink]="['/subscribe']" [fxHide.lt-md]="true" routerLinkActive="active-link">
+      <span>subscribe</span>
+    </a>
+
+    <a class="mtm-link" [routerLink]="['/store']" [fxHide.lt-md]="true" routerLinkActive="active-link">
+      <span>store</span>
+    </a>
+
+    <a class="mtm-link" [routerLink]="['/contact']" [fxHide.lt-md]="true" routerLinkActive="active-link">
+      <span>contact</span>
+    </a>
+
+  </div>
+
+  <div fxLayout="row">
+    &nbsp;
+  </div>
+</div>

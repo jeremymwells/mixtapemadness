@@ -1,0 +1,85 @@
+@import '../../../../variables';
+
+.mtm-socials-body {
+  height: 100%;
+  overflow-x: auto;
+}
+
+.mtm-socials-row {
+  height: 20em;
+  padding: .5em 0 .5em 0;
+  div {
+    text-align: center;
+  }
+}
+
+.mtm-yt-vid-card {
+  border: 1px solid #444343;
+  background-color: #444343;
+  margin: 15px 0 15px 0;
+  padding-left: 7.5px;
+  p {
+    padding: 0 15px 0 15px;
+  }
+}
+
+h1 {
+  text-align: center;
+}
+
+.mtm-sub-head-title {
+  h1 {
+    font-size: $subhead-row-size-big*.75;
+  }
+}
+
+.mtm-sub-head-title-small {
+  h1 {
+    font-size: $subhead-row-size-small;
+  }
+}
+
+.social-link {
+  i {
+    font-size: 2em;
+    line-height: 2.75em;
+  }
+
+  div {
+    font-size: 1em;
+    line-height: 0;
+    margin: -1em 0 0 5px;
+  }
+}
+
+.yt-uix-button-subscribe-branded {
+  display: none;
+}
+
+.mtm-social-icon {
+  font-size: 3em;
+  margin: 0 0 -1em 0;
+}
+
+.mtn-social-icon-bucket {
+  text-align: center;
+  font-size: 2em;
+  height: 10em;
+  width: 18em;
+  display: block;
+  padding-top: 5em;
+
+
+
+  span {
+    position: relative;
+    display: inline-block;
+    top: -0.75em;
+    left: .5em;
+  }
+  &:hover, &:active {
+    border: 1px solid gray;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #232323;
+  }
+}

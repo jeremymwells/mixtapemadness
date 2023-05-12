@@ -1,0 +1,45 @@
+@import '../../../../variables';
+
+$row-size-big: $subhead-row-size-big;
+$row-size-small: $subhead-row-size-small;
+
+
+.socials-sub-head-row {
+  // line-height: $row-size-big;
+}
+
+.socials-sub-head-action-row {
+  // div {
+  //   text-align: center;
+
+  //   a {
+  //     div {
+  //       font-size: 1em;
+  //       line-height: 0;
+  //       margin: -1em 0 0 5px;
+  //     }
+  //   }
+  // }
+}
+
+.mtm-sub-head-title-nudge {
+  h1 {
+    margin-right: -2.75em !important;
+  }
+}
+
+// .mtm-sub-head-title {
+//   h1 {
+//     line-height: 0;
+//     font-size: $row-size-big;
+//     margin-right: 0;
+//   }
+// }
+
+// .mtm-sub-head-title-small {
+//   h1 {
+//     line-height: 0;
+//     font-size: $row-size-small;
+//     margin-right: -3.75em;
+//   }
+// }

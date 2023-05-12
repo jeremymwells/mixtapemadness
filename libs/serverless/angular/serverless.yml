@@ -89,7 +89,7 @@ custom:
       stackName: 'provider.stackName'
       envKey: 'custom.env-key'
       region: 'provider.region'
-      awsAccessId: 'provider.environment.MY_AWS_AKI'
+      awsAccessKeyId: 'provider.environment.MY_AWS_AKI'
       awsSecretAccessKey: 'provider.environment.MY_AWS_SAK'
 
 # function definitions

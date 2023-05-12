@@ -1,0 +1,139 @@
+@import '../../../../variables';
+
+.mtm-chip-select {
+  white-space: nowrap;
+  line-height: 1em;
+  right: 1em;
+  position: absolute;
+  margin-top: -1em;
+}
+
+.mtm-chip-option {
+  border-radius: 2em 2em 2em 2em;
+  background-color: #E0E0E0;
+  color: black;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
+  padding: 0 1em 0 1em;
+  font-size: .75em;
+  line-height: 2em;
+  margin-top: 1em;
+  &:hover {
+    background-color: $header-font-hover-color !important;
+    cursor: pointer !important;
+  }
+}
+
+.mtm-chip-option-lt-md {
+  border-radius: 2em 2em 2em 2em;
+  background-color: #E0E0E0;
+  color: black;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
+  padding: 0 1em 0 1em;
+  font-size: .75em;
+  line-height: 2em;
+  margin-top: 5px;
+  &:hover {
+    background-color: $header-font-hover-color !important;
+    cursor: pointer !important;
+  }
+}
+
+.mtm-chip-unselected {
+  display: none !important;
+}
+
+.mtm-show-duration {
+  @include kameron;
+}
+
+.mtm-shows-center {
+  text-align: left;
+  @include kameron;
+}
+
+.green {
+  &:hover {
+    color: #7ebe7e;
+  }
+}
+.pink {
+  &:hover {
+    color: #e8aaaa;
+  }
+}
+
+.mtm-shows-right-lg {
+  text-align: right;
+  margin-top: .5em;
+  i {
+    font-size: 2.5em;
+  }
+  a {
+    font-size: .95em;
+  }
+}
+
+.mtm-shows-right {
+  text-align: right;
+  margin-top: .5em;
+  i {
+    font-size: 1.95em;
+  }
+  a {
+    font-size: 1em;
+  }
+}
+
+
+.mtm-shows-body {
+  @include kameron;
+  padding-top: 2em;
+  height: 100%;
+  overflow-y: auto;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
+  margin: 0 0 0 0;
+}
+
+h3 {
+  // text-align: center;
+  white-space: nowrap;
+}
+
+.mtm-show-date {
+  color: #e8aaaa; //  $header-font-hover-color;
+  margin-top: .15em;
+}
+
+.mtm-show-row {
+  margin: 1em 0 1em 0;
+  font-size: 1em;
+  padding:.5em 0 .5em 0;
+  &:hover {
+    background-color: lighten(black, 10%);
+    cursor: pointer;
+  }
+}
+
+.mtm-show-venue-container {
+  h3 {
+    margin: 0 0 0 0;
+  }
+}
+
+.mtm-venue {
+  margin: 0 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.mtm-upcoming {
+  white-space: nowrap;
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -6,6 +6,7 @@ html, body {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
   background-color: black;
+  color: white;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -25,6 +26,17 @@ h1, h2, h3, h4, h5, h6 {
     span {
       border-bottom: 1px dotted $header-font-hover-color;
     }
-    
   }
+}
+
+.left {
+  text-align: right;
+}
+
+.right {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
 }

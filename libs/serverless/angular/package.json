@@ -9,9 +9,10 @@
   "prod-cname": "www",
   "api-prefix": "api",
   "scripts": {
-    "start": "nx run serverless-angular:serve",
+    "start": "nx run serverless-angular:serve --configuration=prod",
     "migrations": "node ./scripts/migrate.js",
     "deploy:nonprod": "npx serverless deploy --stage=nonprod",
+    "predeploy:prod": "npm run migrations -- --stage=prod",
     "deploy:prod": "npx serverless deploy --stage=prod",
     "deploy:dev": "npx sls deploy --stage=dev"
   },

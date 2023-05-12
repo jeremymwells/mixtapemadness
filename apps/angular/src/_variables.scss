@@ -6,6 +6,8 @@ $font-size: ($header-height*.3)*2;
 $header-font-color: lighten($text-color, 3%); //#E8D6AA;// lighten($text-color, 3%);
 $header-font-hover-color: #E8D6AA; //darken($text-color, 5%);
 
+$subhead-row-size-big: 2.5em;
+$subhead-row-size-small: 1.5em;
 
 @font-face {
   font-family: "nashimura";

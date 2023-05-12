@@ -1,4 +1,4 @@
-name: Branch Deployment
+name: Branch Dev Deployment
 
 on:
   push:
@@ -7,22 +7,22 @@ on:
       - '!main'
 
 jobs:
-  # quality-gate:
-  #   uses: ./.github/workflows/quality-gates-workflow.yml
+  quality-gate:
+    uses: ./.github/workflows/quality-gates-workflow.yml
 
   deploy-data-migrations:
     name: Run Data Migrations
     runs-on: ubuntu-latest
-    # needs: [ quality-gate ]
+    needs: [ quality-gate ]
     environment: 
-      name: nonprod
+      name: dev
     steps:
       - uses: actions/checkout@v3
         with:
           node-version: 14x
       - uses: ./.github/workflows/composite/data-migrations
         with:
-          stage: nonprod
+          stage: dev
           config: ${{ secrets.AWS_CONFIG }}
           credentials: ${{ secrets.AWS_CREDENTIALS }}
 
@@ -31,13 +31,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ deploy-data-migrations ]
     environment:
-      name: nonprod
+      name: dev
     steps:
       - uses: actions/checkout@v3
         with:
             node-version: 14x
       - uses: ./.github/workflows/composite/aws-connected-command
         with:
-          command: npm run deploy:nonprod
+          command: npm run deploy:dev
           config: ${{ secrets.AWS_CONFIG }}
           credentials: ${{ secrets.AWS_CREDENTIALS }}

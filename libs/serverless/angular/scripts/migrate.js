@@ -5,8 +5,6 @@
   delete require.cache[require.resolve('./helpers')];
   helpers = require('./helpers');
 
-  const argv = helpers.getArgs();
-
   const {
     stackName,
   } = helpers;
@@ -15,8 +13,14 @@
   process.env.MY_AWS_SAK = helpers.awsSecretAccessKey;
   process.env.DDB_TABLE_PREFIX = stackName;
   process.env.MIGRATIONS_TABLE = `${stackName}.migrations`;
-
-  const migrationsResultCode = await helpers.runProcess(`npx mograte ${argv.cmd}`, true);
+  console.log('Running migration delta');
+  const migrationDelta = (await helpers.runProcess(`npx mograte delta`, true, true)).data.trim();
+  console.log('Migration delta: ', migrationDelta);
+  const migrationsResultCode = await helpers.runProcess(`npx mograte up`, true);
+  if (migrationsResultCode) {
+    console.error('There was an error migrating. Reverting.')
+    await helpers.runProcess(`npx mograte down ${migrationDelta}`, true);
+  }
 
   if (migrationsResultCode) {
     process.exit(migrationsResultCode);

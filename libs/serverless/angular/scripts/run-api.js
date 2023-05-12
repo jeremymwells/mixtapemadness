@@ -1,14 +1,16 @@
 
 (async function() {
-  const helpers = require('./helpers');
-  const argv = helpers.getArgs();
+  let helpers = require('./helpers');
+  await helpers.exportServerless();
+  delete require.cache[require.resolve('./helpers')];
+  helpers = require('./helpers');
 
+
+  process.env.MY_AWS_AKI = helpers.awsAccessKeyId;
+  process.env.MY_AWS_SAK = helpers.awsSecretAccessKey;
   process.env.SLS_DEBUG='*';
-  // process.env.AWS_REGION=helpers.region;
-  // process.env.AWS_ACCESS_KEY_ID=helpers.accessKeyId;
-  // process.env.AWS_SECRET_ACCESS_KEY=helpers.secretAccessKey;
 
-  const port = argv.port || '8080';
+  const port = helpers.getArgs().port || '8080';
 
   // process.env.FE_STAGE = gitBranch;
 

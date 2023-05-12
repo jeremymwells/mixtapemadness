@@ -1,0 +1,9 @@
+
+<a *ngIf="isRouterLink()" [routerLink]="url" title="{{title}}" class="mtm-link {{ class }}">
+  <i *ngIf="icon" class="{{icon}}"></i>
+  <div *ngIf="smallText">{{ smallText }}</div>
+</a>
+<a *ngIf="!isRouterLink()" [attr.href]="url" target="_blank" title="{{title}}" class="mtm-link {{ class }}">
+  <i *ngIf="icon" class="{{icon}}"></i>
+  <div *ngIf="smallText">{{ smallText }}</div>
+</a>

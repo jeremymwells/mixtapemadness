@@ -1,20 +1,26 @@
 import { Route } from "@angular/router";
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ShowsComponent } from './components/shows/shows.component';
-import { SocialsComponent } from './components/socials/socials.component';
-import { VideoComponent } from './components/video/video.component';
-import { SubscribeComponent } from './components/subscribe/subscribe.component';
-import { StoreComponent } from './components/store/store.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { YTComponent } from './components/socials/yt/yt.component';
-import { SocialsHomeComponent } from './components/socials/socials-home/socials-home.component';
-import { FBComponent } from './components/socials/fb/fb.component';
+import { HomeComponent } from './components/routed/home/home.component';
+import { AboutComponent } from './components/routed/about/about.component';
+import { ShowsComponent } from './components/routed/shows/shows.component';
+import { SocialsComponent } from './components/routed/socials/socials.component';
+import { VideoComponent } from './components/routed/video/video.component';
+import { SubscribeComponent } from './components/routed/subscribe/subscribe.component';
+import { StoreComponent } from './components/routed/store/store.component';
+import { ContactComponent } from './components/routed/contact/contact.component';
+import { YTComponent } from './components/routed/socials/yt/yt.component';
+import { SocialsHomeComponent } from './components/routed/socials/socials-home/socials-home.component';
+import { FBComponent } from './components/routed/socials/fb/fb.component';
+import { PersonComponent } from './components/routed/about/person/person.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
+  { path: 'about', component: AboutComponent,
+    children: [
+      { path: ':personOrPersons', component: PersonComponent },
+      { path: '**', redirectTo: 'us', pathMatch: 'full' }
+    ]
+  },
   { path: 'shows', component: ShowsComponent },
   { path: 'socials', component: SocialsComponent,
     children: [
