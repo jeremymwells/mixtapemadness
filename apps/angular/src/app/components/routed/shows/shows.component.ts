@@ -8,6 +8,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { provideIcons } from '@ng-icons/core';
 import { akarIcon, akarLocation } from '@ng-icons/akar-icons';
 import { FormsModule } from '@angular/forms';
+import { ProgressSpinnerComponent } from '../../general-use/progress-spinner/progress-spinner.component';
+
 
 @Component({
   selector: 'mixtapemadness-shows',
@@ -19,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     FlexLayoutModule,
     MatSlideToggleModule,
     FormsModule,
+    ProgressSpinnerComponent,
   ],
   providers: [ provideIcons({
     akarIcon,
@@ -32,6 +35,7 @@ export class ShowsComponent implements OnDestroy {
   private _showYears = [2022, 2023, 2024];
   private _shows = [] as any[];
 
+  showsLoaded = false;
   pastShows = [] as any;
   futureShows = [] as any;
   showPastShows = false;
@@ -146,7 +150,8 @@ export class ShowsComponent implements OnDestroy {
 
     this.setDisplayShows();
     this.setTitle();
-    console.log('pastShows', this.pastShows);
-    console.log('futureShows', this.futureShows);
+    setTimeout(() => {
+      this.showsLoaded = true;
+    }, 2000)
   }
 }

@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubHeadComponent } from '../../general-use/sub-head.component/sub-head.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AboutService } from './about.service';
+import { register } from 'swiper/element/bundle';
+
+register()
 
 @Component({
   selector: 'mixtapemadness-about',
@@ -10,17 +13,28 @@ import { AboutService } from './about.service';
   imports: [
     CommonModule,
     SubHeadComponent,
-
     RouterModule,
   ],
   providers: [
     AboutService,
-    // ActivatedRoute,
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css'],
 })
 export class AboutComponent {
+  // config: SwiperOptions = {
+  //   pagination: { el: '.swiper-pagination', clickable: true },
+  //   navigation: {
+  //     nextEl: '.swiper-button-next',
+  //     prevEl: '.swiper-button-prev'
+  //   },
+  //   spaceBetween: 30
+  // };
+
+
+
+
   personOrPersons: any;
   constructor(
     private route: ActivatedRoute,

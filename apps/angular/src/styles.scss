@@ -46,3 +46,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// MATERIAL OVERRIDES
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__icon,
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
+  display: none;
+}
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after {
+  background: darken(#e8aaaa, 15%) !important;
+}
+.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon{
+  fill: darken(#e8aaaa, 65%) !important;
+}
+.mat-mdc-slide-toggle .mdc-switch:enabled .mdc-switch__track::after {
+  // light bit
+  background: #e8aaaa !important;
+  // background: $header-font-hover-color !important;
+}

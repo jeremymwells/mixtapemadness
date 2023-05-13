@@ -1,0 +1,12 @@
+
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex ngClass.gt-sm="mtm-progress" ngClass.lt-md="mtm-progress-sm">
+    <img *ngIf="show" src="assets/images/mixtape_progress.gif" alt="loading" />
+    <h1 *ngIf="show">
+      {{ message }}
+      <span>{{ ellipsis }}</span>
+    </h1>
+
+  </div>
+</div>
+

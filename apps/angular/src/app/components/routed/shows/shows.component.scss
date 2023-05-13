@@ -90,7 +90,7 @@
 .mtm-shows-body {
   @include kameron;
   padding-top: 2em;
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
 }
 
@@ -143,11 +143,11 @@ h3 {
 }
 
 .nudger-sm {
-  position: absolute;
-  right: 2.5em;
-  margin-top: -1em;
+  position: relative;
+  right: -80%;
+  padding: 0.5em 0 0.25em 0;
   div {
-    color: white;
+    color: $header-font-color;;
     white-space: nowrap;
     @include nashimura;
     font-size: .7em;
@@ -155,11 +155,12 @@ h3 {
 }
 
 .nudger {
-  position: absolute;
-  right: 18%;
-  margin-top: -1.2em;
+  position: relative;
+  right: -118%;
+  padding: 0.5em 0 0.25em 0;
+  line-height: 1.5em;
   div {
-    color: white;
+    color: $header-font-color;;
     white-space: nowrap;
     @include nashimura;
     font-size: .7em;
