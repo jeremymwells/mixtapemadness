@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideIcons } from '@ng-icons/core';
 import { akarIcon } from '@ng-icons/akar-icons';
@@ -21,14 +21,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   templateUrl: './progress-spinner.component.html',
   styleUrls: ['./progress-spinner.component.scss'],
 })
-export class ProgressSpinnerComponent {
+export class ProgressSpinnerComponent implements AfterViewInit {
   @Input() show = false;
   @Input() message = 'loading';
+  @Input() hideProgressDots = false;
   ellipsis = ' ';
   holdEmpty = false;
   timeout = 0 as any;
-  constructor() {
-    this.blinkEllipsis();
+
+  ngAfterViewInit(): void {
+    if (!this.hideProgressDots) {
+      this.blinkEllipsis();
+    }
   }
 
   blinkEllipsis() {
@@ -36,6 +40,7 @@ export class ProgressSpinnerComponent {
       if (!this.show) {
         clearTimeout(this.timeout);
       }
+    
       if (this.ellipsis.split('').filter(x => x.trim()).length === 3){
         this.holdEmpty = true;
       }

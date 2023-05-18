@@ -1,3 +1,203 @@
-<div>
-  {{ personOrPersons | json }}
+
+
+
+
+<!-- large about page -->
+<div *ngIf="personOrPersons" fxHide.lt-md="true">
+  <div class="mtm-about-container" *ngIf="imagesLoaded">
+
+    <div class="mtm-carousel-container">
+  
+      <!-- large slider -->
+      <div [fxHide.lt-md]="true">
+        <ng-image-slider
+          #nav
+          [images]="personOrPersons.images"
+          [infinite]="true"
+          [autoSlide]="2"
+          [imageSize]="{ width: '80%', height: '100%' }"
+          [animationSpeed]="2"
+          slideImage="1"
+          [showArrow]="false"
+        >
+        </ng-image-slider>
+      </div>
+  
+    </div>
+  
+    <div *ngIf="personOrPersons" class="mtm-about-content">
+
+      <div class="mtm-about-bg">&nbsp;</div>
+
+      <div class="mtm-about-body">
+
+        <!-- individual about page header -->
+        <mixtapemadness-sub-head>
+
+          <mixtapemadness-link
+            *ngIf="!personOrPersons.isUs"
+            leftContent
+            [url]="['../us']"
+            icon="ai-chevron-left"
+            smallText="Back"
+            class="social-link mtm-about-back-link"
+          ></mixtapemadness-link>
+
+          <h1 centerContent style="white-space: nowrap; margin: 1em 0 .5em -20px; font-size: 3em; ">
+            {{ personOrPersons.title }}
+          </h1>
+        </mixtapemadness-sub-head>
+    
+        <!-- about page writeup -->
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+    
+          <div fxFlex></div>
+          <div fxFlex="80">
+            <div
+              class="mtm-about-writeup"
+              fxLayout="row"
+              *ngFor="let line of personOrPersons.writeup"
+            >
+              {{line}}
+            </div>
+          </div>
+          <div fxFlex></div>
+    
+        </div>
+
+        <div class="mtm-inner-pic-row">
+
+          <!-- large individual thumbs row -->
+          <div fxLayout="row" fxLayoutAlign="space-around center"  *ngIf="personOrPersons.isUs">
+
+            <div fxFlex="5"></div>
+
+            <div fxFlex.gt-sm="24" *ngFor="let person of otherPersons" class="mtm-about-image-container">
+              <a [routerLink]="person.link" class="mtm-link">
+                <img [attr.src]="person.currentThumb.src" (mouseover)="person.swampThumb()" (mouseout)="person.swampThumb()" />
+                <h3 *ngIf="personOrPersons.isUs">{{person.title}}</h3>
+              </a>
+            </div>
+
+            <div fxFlex="5"></div>
+
+          </div>
+
+          <div *ngIf="!personOrPersons.isUs" fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxFlex.lt-md="100" fxLayoutWrap="true" class="mtm-about-image-container-sm">
+              <a [routerLink]="personOrPersons.link" class="mtm-link img-link">
+                <img [attr.src]="personOrPersons.currentThumb.src" (mouseover)="personOrPersons.swampThumb()" (mouseout)="personOrPersons.swampThumb()" />
+                <h3>{{personOrPersons.title}}</h3>
+              </a>
+            </div>
+          </div>
+
+          <!-- <div *ngIf="personOrPersons.isUs" fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxFlex.lt-md="100" fxLayoutWrap="true" *ngFor="let person of otherPersons" class="mtm-about-image-container-sm">
+              <a [routerLink]="person.link" class="mtm-link">
+                <img [attr.src]="person.currentThumb.src" (mouseover)="person.swampThumb()" (mouseout)="person.swampThumb()" />
+                <h3>{{person.title}}</h3>
+              </a>
+            </div>
+          </div> -->
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- small about page -->
+<div *ngIf="personOrPersons" fxHide.gt-sm="true">
+  <div class="mtm-about-container" *ngIf="imagesLoaded">
+
+    <div class="mtm-carousel-container">
+  
+      <!-- small slider -->
+      <div [fxHide.gt-sm]="true">
+        <ng-image-slider
+          #nav
+          [images]="personOrPersons.images"
+          [infinite]="true"
+          [autoSlide]="2"
+          [imageSize]="{ width: 300, height: 250 }"
+          [animationSpeed]="2"
+          slideImage="1"
+          [showArrow]="false"
+        >
+        </ng-image-slider>
+      </div>
+  
+    </div>
+  
+    <div *ngIf="personOrPersons" class="mtm-about-content">
+
+      <div class="mtm-about-bg">&nbsp;</div>
+
+      <div class="mtm-about-body">
+
+        <!-- individual about page header -->
+        <mixtapemadness-sub-head>
+
+          <mixtapemadness-link
+            *ngIf="!personOrPersons.isUs"
+            leftContent
+            [url]="['../us']"
+            icon="ai-chevron-left"
+            smallText="Back"
+            class="social-link mtm-about-back-link-sm"
+          ></mixtapemadness-link>
+
+          <h1 centerContent style="white-space: nowrap; margin: 1em 0 .5em -20px; font-size: 1.5em; ">
+            {{ personOrPersons.title }}
+          </h1>
+        </mixtapemadness-sub-head>
+    
+        <!-- about page writeup -->
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+    
+          <div fxFlex></div>
+          <div fxFlex="80">
+            <div
+              class="mtm-about-writeup"
+              fxLayout="row"
+              *ngFor="let line of personOrPersons.writeup"
+            >
+              {{line}}
+            </div>
+          </div>
+          <div fxFlex></div>
+    
+        </div>
+
+        <div class="mtm-inner-pic-row">
+
+          <div fxLayout="row" fxLayoutAlign="space-around center"  *ngIf="!personOrPersons.isUs">
+
+            <div fxFlex="5"></div>
+
+            <a [routerLink]="personOrPersons.link" class="mtm-link img-link-sm">
+              <img [attr.src]="personOrPersons.currentThumb.src" (mouseover)="personOrPersons.swampThumb()" (mouseout)="personOrPersons.swampThumb()" />
+              <h3 *ngIf="!personOrPersons.isUs">{{personOrPersons.title}}</h3>
+            </a>
+
+            <div fxFlex="5"></div>
+
+          </div>
+
+          <div *ngIf="personOrPersons.isUs" [fxHide.gt-sm]="true" fxLayout="row wrap" fxLayoutAlign="space-around center">
+            <div fxFlex="100" fxLayoutWrap="true" *ngFor="let person of otherPersons" class="mtm-about-image-container-sm">
+              <a [routerLink]="person.link" class="mtm-link img-link-sm">
+                <img [attr.src]="person.currentThumb.src" (mouseover)="person.swampThumb()" (mouseout)="person.swampThumb()" />
+                <h3>{{person.title}}</h3>
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

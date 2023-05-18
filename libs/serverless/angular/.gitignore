@@ -27,3 +27,4 @@ cypress/screenshots
 
 
 .service.config.json
+node_modules

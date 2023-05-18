@@ -1,56 +1,7 @@
-<mixtapemadness-sub-head
-  *ngIf="personOrPersons"
+<mixtapemadness-progress-spinner
+  [show]="!imagesLoaded"
+  message="Loading {{ personOrPersons.title || 'About Page'}}"
 >
-  <h1 centerContent>
-    {{ personOrPersons.title }}
-  </h1>
-</mixtapemadness-sub-head>
+</mixtapemadness-progress-spinner>
 
-<swiper-container>
-  <swiper-slide>Slide 1</swiper-slide>
-  <swiper-slide>Slide 2</swiper-slide>
-  <swiper-slide>Slide 3</swiper-slide>
-</swiper-container>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <router-outlet></router-outlet> -->
-
-<!-- <div *ngIf="personOrPersons">
-  <p *ngFor="let line of personOrPersons.writeup">
-    {{ line }}
-  </p>
-</div>
-<div *ngIf="personOrPersons.isUs">
-  <div *ngFor="let sub of subjects">
-    <div *ngIf="sub.title !== currentSubject.title">
-      <img
-        style="max-width: 150px;"
-        [attr.src]="sub.currentPic"
-        (mouseover)="swapImage(sub)"
-        (mouseout)="swapImage(sub)"
-      />
-    </div>
-  </div>
-</div> -->
+<router-outlet></router-outlet>
