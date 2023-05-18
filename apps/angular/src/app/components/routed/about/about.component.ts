@@ -1,11 +1,12 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubHeadComponent } from '../../general-use/sub-head.component/sub-head.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AboutService } from './about.service';
-import { register } from 'swiper/element/bundle';
-
-register()
+import { FlexLayoutModule, MediaObserver } from '@angular/flex-layout';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { ProgressSpinnerComponent } from '../../general-use/progress-spinner/progress-spinner.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'mixtapemadness-about',
@@ -14,35 +15,32 @@ register()
     CommonModule,
     SubHeadComponent,
     RouterModule,
+    FlexLayoutModule,
+    NgImageSliderModule,
+    ProgressSpinnerComponent,
   ],
   providers: [
     AboutService,
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css'],
+  styleUrls: ['./about.component.scss']
 })
 export class AboutComponent {
-  // config: SwiperOptions = {
-  //   pagination: { el: '.swiper-pagination', clickable: true },
-  //   navigation: {
-  //     nextEl: '.swiper-button-next',
-  //     prevEl: '.swiper-button-prev'
-  //   },
-  //   spaceBetween: 30
-  // };
-
-
-
-
+  private subscription = new Subscription();
+  imagesLoaded = false;
   personOrPersons: any;
+  otherPersons: any;
   constructor(
     private route: ActivatedRoute,
-    private aboutService: AboutService
+    private aboutService: AboutService,
   ) {
-    this.route.paramMap.subscribe(params => {
+    this.subscription.add(this.route.paramMap.subscribe(params => {
       this.personOrPersons = this.aboutService.getPersonOrPersons(params.get('personOrPersons'));
-      console.log('personOrPersons', this.personOrPersons);
-    });
+      this.otherPersons = this.aboutService.getNotPersonOrPersons(params.get('personOrPersons'));
+      setTimeout(() => {
+        console.log('TITLE SHOULD Be', this.personOrPersons.title);
+        this.imagesLoaded = true;
+      }, 1500);
+    }))
   }
 }

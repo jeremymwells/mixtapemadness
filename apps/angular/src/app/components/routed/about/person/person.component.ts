@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule, MediaObserver } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { YouTubePlayerModule } from "@angular/youtube-player";
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -12,6 +12,9 @@ import {
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SubHeadComponent } from '../../../general-use/sub-head.component/sub-head.component';
 import { AboutService } from '../about.service';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { Subscription } from 'rxjs';
+import { LinkComponent } from '../../../general-use/link/link.component';
 
 @Component({
   selector: 'mixtapemadness-person',
@@ -21,24 +24,43 @@ import { AboutService } from '../about.service';
     RouterModule,
     FlexLayoutModule,
     SubHeadComponent,
+    NgImageSliderModule,
+    LinkComponent
   ],
-  providers: [
-    AboutService,
-    // ActivatedRoute,
-  ],
+  providers: [ AboutService ],
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.scss'],
 })
 export class PersonComponent {
-  personOrPersons = {} as any;
+  private subscription = new Subscription();
+  imagesLoaded = false;
+  personOrPersons: any;
+  otherPersons: any;
 
   constructor(
     private route: ActivatedRoute,
-    private aboutService: AboutService
+    private aboutService: AboutService,
+    private mediaObserver: MediaObserver
   ) {
-    this.route.paramMap.subscribe(params => {
+
+    this.subscription.add(
+      this.mediaObserver
+      .asObservable()
+      .subscribe(() => {
+        this.initRouteParameters();
+      })
+    );
+  }
+
+  initRouteParameters() {
+    this.personOrPersons = undefined;
+    this.otherPersons = undefined;
+    this.subscription.add(this.route.paramMap.subscribe(params => {
       this.personOrPersons = this.aboutService.getPersonOrPersons(params.get('personOrPersons'));
-      console.log('ROUTED PERSON OR PERSONS', this.personOrPersons);
-    });
+      this.otherPersons = this.aboutService.getNotPersonOrPersons(params.get('personOrPersons'));
+      setTimeout(() => {
+        this.imagesLoaded = true;
+      }, 1500);
+    }))
   }
 }

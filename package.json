@@ -80,8 +80,8 @@
     "@angular/youtube-player": "15.2.9",
     "@ng-icons/akar-icons": "24.0.0",
     "@ng-icons/core": "24.0.0",
+    "ng-image-slider": "^7.0.0",
     "rxjs": "7.8.0",
-    "swiper": "^9.3.1",
     "tslib": "2.3.0",
     "zone.js": "0.12.0"
   }

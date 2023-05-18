@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 @import './variables';
@@ -30,6 +29,47 @@ h1, h2, h3, h4, h5, h6 {
     span {
       border-bottom: 1px dotted $header-font-hover-color;
     }
+  }
+}
+
+.mtm-social-icon {
+  font-size: 3em;
+  margin: 0 0 -1em 0;
+}
+
+.mtn-social-icon-bucket {
+  text-align: center;
+  font-size: 2em;
+  height: 10em;
+  width: 18em;
+  display: block;
+  padding-top: 5em;
+
+  span {
+    position: relative;
+    display: inline-block;
+    top: -0.75em;
+    left: .5em;
+  }
+  &:hover, &:active {
+    border: 1px solid gray;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #232323;
+  }
+}
+
+.mtm-about-back-link {
+  position: absolute;
+  left: 1em;
+  top: -0.5em;
+  i {
+    font-size: 4em !important;
+  }
+  div {
+    font-size: 1em !important;
+    margin: -2.75em 0 0 0 !important;
+    text-align: center;
+    width: 100%;
   }
 }
 

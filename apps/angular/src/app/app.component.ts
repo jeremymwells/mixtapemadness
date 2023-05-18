@@ -8,7 +8,13 @@ import { LinkComponent } from './components/general-use/link/link.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, LinkComponent, NgIconComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HeaderComponent,
+    LinkComponent,
+    NgIconComponent
+  ],
   providers: [provideIcons({ akarIcon, akarThreeLineHorizontal })],
   selector: "mixtapemadness-root",
   templateUrl: "./app.component.html",
@@ -16,7 +22,7 @@ import { LinkComponent } from './components/general-use/link/link.component';
 })
 export class AppComponent {
   smallMenuOpen = false;
-
+  
   toggleSmallMenu(tf: boolean) {
     this.smallMenuOpen = tf;
   }
