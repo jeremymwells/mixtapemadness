@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -9,7 +9,10 @@ import {
   akarFacebookFill,
   akarCross,
 } from '@ng-icons/akar-icons';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { AppService } from '../../../app.service';
+import { Subscription } from 'rxjs';
+import { LinkComponent } from '../link/link.component';
 
 @Component({
   selector: 'mixtapemadness-header',
@@ -18,7 +21,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     FlexLayoutModule,
-    NgIconComponent
+    NgIconComponent,
+    LinkComponent
   ],
   providers: [ provideIcons({
     akarIcon,
@@ -36,7 +40,11 @@ export class HeaderComponent {
   srcOne = 'assets/images/mixtape_center_logo.png';
   srcTwo = 'assets/images/mixtape_center_logo_hover.png';
   logoImageSrc = this.srcOne;
-
+  currentPath = document.location.pathname;
+  constructor(
+    public appSvc: AppService,
+  ) { }
+  
   toggleSmallMenuState() {
     this.toggleSmallMenu.emit(!this.smallMenuOpen);
   }

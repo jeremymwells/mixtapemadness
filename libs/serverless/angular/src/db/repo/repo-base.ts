@@ -4,7 +4,7 @@ import { DynamoDBClient, DynamoDBClientConfig, PutItemCommand } from '@aws-sdk/c
 import { DynamoDBDocumentClient, ExecuteStatementCommand } from '@aws-sdk/lib-dynamodb';
 import { NodeHttpHandler } from "@aws-sdk/node-http-handler";
 // import { unmarshall } from '@aws-sdk/util-dynamodb';
-import { fromIni } from "@aws-sdk/credential-providers";
+// import { fromIni } from "@aws-sdk/credential-providers";
 import * as pluralize from 'pluralize';
 
 import { DynamoItem } from '../models/dynamo-item';
@@ -183,8 +183,8 @@ export abstract class RepoBase<T extends DynamoItem> {
     ].join(' ');
 
     console.log('SELECTING OVERALL STATEMENT: ', Statement);
-    const eComm = new ExecuteStatementCommand({ Statement })
-    const result = await this.ddbDocClient.send(eComm, config);
+    const eComm = new ExecuteStatementCommand({ Statement }) as any;
+    const result = await this.ddbDocClient.send(eComm, config) as any;
 
     console.log('SELECTED RESULT: ', result);
     
@@ -234,7 +234,7 @@ export abstract class RepoBase<T extends DynamoItem> {
 
     console.log('UPDATE STATEMENT: ', Statement);
 
-    const result = await this.ddbDocClient.send(new ExecuteStatementCommand({ Statement }), config);
+    const result = await this.ddbDocClient.send(new ExecuteStatementCommand({ Statement }) as any, config);
 
     console.log('UPDATE RESULT: ', result);
     return Promise.resolve(result);

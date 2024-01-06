@@ -44,27 +44,15 @@ class Image {
 
 @Injectable()
 export class AboutService {
+  
   persons = [
     new PersonOrPersons({
       key: 'us',
       title: 'About Mixtape Madness',
       writeup: [
         `
-        Some dudes knew each other when they were kids. The played in bands, and did some cool shit.
-        At one point, there was a metal band, and some other shit. Then there was belly dancing and drum circles and shit.
-        Then there was a 12 Gauge Justice band. Once Brian's mom dressed up like Brian for Halloween.
-        By their powers combined, they are captain planet. He's your hero-- gonna take pollution down to zero. HEART!
+        For over 12 years, Mixtape Madness has been playing your favorite songs from the 60's, 70's, 80's and 90's Blues/Country/Classic Rock/Dance/Pop/R&B and Punk
         `,
-        '','',
-        'Go go, Power Rangers. Duck Tales - WOO-OOO',
-        '','',
-        'Blathering Blatherskite',
-        '','',
-        'Then life happened, and they went separate ways for some number of years...',
-        'And then they came back. Slowly but surely.',
-        'And now they\'re here, to come again, in your ear pussies',
-        ' ',' ',
-        ' ',' ',
       ],
       images: [
         new Image('assets/images/about/mixtape.png'),
@@ -79,7 +67,7 @@ export class AboutService {
     new PersonOrPersons({
       key: 'harvey',
       title: 'Jason Harvey',
-      writeup: ['blah blah bloody blah blah'],
+      writeup: ['Plays guitar, sings lead / harmonies'],
       images: [
         new Image('assets/images/about/harvey_thumb1.jpeg'),
         new Image('assets/images/about/harvey_thumb2.jpeg'),
@@ -93,7 +81,7 @@ export class AboutService {
       key: 'brian',
       title: 'Brian Ippolito',
       useLastName: false,
-      writeup: ['blah blah bloody blah blah'],
+      writeup: ['Plays drums, sings lead / harmonies'],
       images: [
         new Image('assets/images/about/brian_thumb1.jpeg'),
         new Image('assets/images/about/brian2.png'),
@@ -105,8 +93,8 @@ export class AboutService {
     }),
     new PersonOrPersons({
       key: 'stove',
-      title: 'Jason Stachowiak',
-      writeup: ['blah blah bloody blah blah'],
+      title: 'Jason "Stove" Stachowiak',
+      writeup: ['Plays guitar, sings harmonies'],
       images: [
         new Image('assets/images/about/stove_thumb1.jpeg'),
         new Image('assets/images/about/stove_thumb2.jpeg'),
@@ -119,7 +107,7 @@ export class AboutService {
     new PersonOrPersons({
       key: 'jeremy',
       title: 'Jeremy Wells',
-      writeup: ['blah blah bloody blah blah'],
+      writeup: ['Plays bass, sings lead / harmonies'],
       useLastName: false,
       images: [
         new Image('assets/images/about/jeremy_thumb2.png'),

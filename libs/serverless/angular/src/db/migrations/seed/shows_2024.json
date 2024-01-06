@@ -1,0 +1,65 @@
+[
+  {
+    "venue": "Crow's Nest",
+    "dateAndTime": "02/25/2024 20:00",
+    "duration": 3,
+    "address": "510 Tire Hill Rd",
+    "city": "Johnstown",
+    "state": "PA",
+    "phone": "+18142886378"
+  },
+  {
+    "venue": "The Block",
+    "dateAndTime": "03/16/2024 18:00",
+    "duration": 4,
+    "address": "23 Chestnut Ave",
+    "city": "Sharon",
+    "state": "PA",
+    "phone": "+7249794004"
+  },
+  {
+    "venue": "Nova Cellars",
+    "dateAndTime": "03/30/2024 18:00",
+    "duration": 3,
+    "address": "1474 State Route 208",
+    "city": "Pulaski",
+    "state": "PA",
+    "phone": "+17246987026"
+  },
+  {
+    "venue": "Back Home BBQ & Brew Co",
+    "dateAndTime": "04/20/2024 18:00",
+    "duration": 3,
+    "address": "1328 Mars-Evans City Road",
+    "city": "Evans City",
+    "state": "PA",
+    "phone": "+17244323939"
+  },
+  {
+    "venue": "Private Event",
+    "dateAndTime": "08/23/2024 19:00",
+    "duration": 3,
+    "address": "",
+    "city": "Johnstown",
+    "state": "PA",
+    "phone": ""
+  },
+  {
+    "venue": "Private Event",
+    "dateAndTime": "08/24/2024 19:00",
+    "duration": 3,
+    "address": "",
+    "city": "Johnstown",
+    "state": "PA",
+    "phone": ""
+  },
+  {
+    "dateAndTime": "10/28/2024 21:00",
+    "duration": 4,
+    "phone": "+17245358999",
+    "address": "400 Beaver St",
+    "city": "Wampum",
+    "state": "PA",
+    "venue": "T-Bones Paramount"
+  }
+]

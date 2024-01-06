@@ -24,8 +24,8 @@ export class LinkComponent {
   @Input() text = '';
   @Input() title = this.smallText || this.text || '';
   @Input() icon = '';
-  @Input() class = '';
-
+  @Input() clazz = '';
+  @Input() omitSmallText = false;
   isRouterLink() {
     return typeof this.url === 'object';
   }

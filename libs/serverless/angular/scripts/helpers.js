@@ -31,6 +31,7 @@ let region = serverlessConfiguration.region;
 let awsAccessKeyId = serverlessConfiguration.awsAccessKeyId;
 let awsSecretAccessKey = serverlessConfiguration.awsSecretAccessKey;
 if (existsSync(resolve(__dirname, '../.service.config.json'))) {
+  delete require.cache[resolve('../.service.config.json')];
   serverlessConfiguration = require('../.service.config.json');
   stackName = serverlessConfiguration.stackName;
   serviceName = serverlessConfiguration.service.name;

@@ -25,14 +25,19 @@ export class Show extends DynamoItem {
     this.year = new Date(this.dateAndTime).getFullYear();
     this.createdDate = this.lastEditedDate = new Date().getTime();
     this.createdBy = this.lastEditedBy = 'Jeremy Wells';
+    console.log(this);
     return this;
   }
 
   fromItem (item: any): Show | undefined { // transforms any dynamodb records for use in app
-    console.log('ITEM!!!', typeof item);
+    // console.log('ITEM!!!', typeof item);
     if (!item) { return; }
     const show = new Show();
     Object.assign(show, item);
     return show;
+  }
+
+  fromObject(item: any) {
+    return new Show().fromItem(item)?.toItem();
   }
 }

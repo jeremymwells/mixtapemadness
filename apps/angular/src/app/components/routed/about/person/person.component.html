@@ -34,14 +34,14 @@
         <!-- individual about page header -->
         <mixtapemadness-sub-head>
 
-          <mixtapemadness-link
+          <!-- <mixtapemadness-link
             *ngIf="!personOrPersons.isUs"
             leftContent
             [url]="['../us']"
             icon="ai-chevron-left"
             smallText="Back"
-            class="social-link mtm-about-back-link"
-          ></mixtapemadness-link>
+            clazz="social-link mtm-about-back-link"
+          ></mixtapemadness-link> -->
 
           <h1 centerContent style="white-space: nowrap; margin: 1em 0 .5em -20px; font-size: 3em; ">
             {{ personOrPersons.title }}
@@ -58,14 +58,14 @@
               fxLayout="row"
               *ngFor="let line of personOrPersons.writeup"
             >
-              {{line}}
+              {{line}}<br />
             </div>
           </div>
           <div fxFlex></div>
     
         </div>
 
-        <div class="mtm-inner-pic-row">
+        <div class="mtm-inner-pic-row-lt-md">
 
           <!-- large individual thumbs row -->
           <div fxLayout="row" fxLayoutAlign="space-around center"  *ngIf="personOrPersons.isUs">
@@ -140,14 +140,14 @@
         <!-- individual about page header -->
         <mixtapemadness-sub-head>
 
-          <mixtapemadness-link
+          <!-- <mixtapemadness-link
             *ngIf="!personOrPersons.isUs"
             leftContent
             [url]="['../us']"
             icon="ai-chevron-left"
             smallText="Back"
-            class="social-link mtm-about-back-link-sm"
-          ></mixtapemadness-link>
+            clazz="social-link mtm-about-back-link-sm"
+          ></mixtapemadness-link> -->
 
           <h1 centerContent style="white-space: nowrap; margin: 1em 0 .5em -20px; font-size: 1.5em; ">
             {{ personOrPersons.title }}

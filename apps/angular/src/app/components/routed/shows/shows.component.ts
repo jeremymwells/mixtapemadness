@@ -32,7 +32,8 @@ import { ProgressSpinnerComponent } from '../../general-use/progress-spinner/pro
 })
 export class ShowsComponent implements OnDestroy {
   private sub = new Subscription();
-  private _showYears = [2022, 2023, 2024];
+  private _currentYear = new Date().getFullYear();
+  private _showYears = [2022, 2023, 2024, 2025]; // new Array(this._currentYear - 2022).map((_,i) => this._currentYear - i);
   private _shows = [] as any[];
 
   showsLoaded = false;

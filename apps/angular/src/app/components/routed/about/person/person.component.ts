@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule, MediaObserver } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ import { AboutService } from '../about.service';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { Subscription } from 'rxjs';
 import { LinkComponent } from '../../../general-use/link/link.component';
+import { AppService } from '../../../../app.service';
 
 @Component({
   selector: 'mixtapemadness-person',
@@ -31,7 +32,7 @@ import { LinkComponent } from '../../../general-use/link/link.component';
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.scss'],
 })
-export class PersonComponent {
+export class PersonComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
   imagesLoaded = false;
   personOrPersons: any;
@@ -39,10 +40,16 @@ export class PersonComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private appSvc: AppService,
     private aboutService: AboutService,
     private mediaObserver: MediaObserver
-  ) {
+  ) { }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit(): void {
     this.subscription.add(
       this.mediaObserver
       .asObservable()
@@ -61,6 +68,7 @@ export class PersonComponent {
       setTimeout(() => {
         this.imagesLoaded = true;
       }, 1500);
+      this.appSvc.setBackButton(this.personOrPersons.isUs ? ['/home']: ['/about']);
     }))
   }
 }

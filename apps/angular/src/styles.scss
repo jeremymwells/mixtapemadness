@@ -73,6 +73,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.mtm-header-back-arrow {
+  display: block;
+  margin: -1.25em 0 0 0;
+  padding: 1em 3em 1em 0;
+}
+
 .left {
   text-align: right;
 }
@@ -84,7 +90,7 @@ h1, h2, h3, h4, h5, h6 {
 .center {
   text-align: center;
 }
-html, body { height: 100%; }
+html, body { height: auto; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 

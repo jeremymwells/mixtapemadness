@@ -1,4 +1,4 @@
-<div class="mtm-page">
+<div class="{{ appSvc.screenSizeMatches(['lt-md', 'md']) ? 'mtm-page-md-lt-md': 'mtm-page' }}">
   <mixtapemadness-header [smallMenuOpen]="smallMenuOpen" (toggleSmallMenu)="toggleSmallMenu($event)"></mixtapemadness-header>
   <div class="mtm-main" [hidden]="smallMenuOpen">
     <router-outlet></router-outlet>

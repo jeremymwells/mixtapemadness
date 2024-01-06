@@ -26,11 +26,11 @@ shows:
             year: true
 
 
-social:
-  name: ${self:provider.stackName}-app-social
-  handler: ./src/api/handlers/youtube.getVideos
-  events:
-  - http:
-      path: api/social/yt
-      private: false
-      method: get
+# social:
+#   name: ${self:provider.stackName}-app-social
+#   handler: ./src/api/handlers/youtube.getVideos
+#   events:
+#   - http:
+#       path: api/social/yt
+#       private: false
+#       method: get
