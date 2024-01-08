@@ -1,0 +1,44 @@
+$darkRed: #dc5a5a;
+$darkGreen: #30af69;
+
+.show-list-container {
+  padding: 1em 5em 0 5em;
+}
+
+.past-show {
+  background-color: #f2cbcb;
+  .mdc-fab { 
+    background-color: $darkRed !important;
+    --mdc-fab-container-color: $darkRed !important;
+    --mdc-fab-icon-color: #fff;
+    --mat-mdc-fab-color: #fff;
+  }
+
+}
+
+.future-show {
+  background-color: #aae8d1;
+  .mdc-fab { 
+    background-color: $darkGreen !important;
+    --mdc-fab-container-color: $darkGreen !important;
+    --mdc-fab-icon-color: #fff;
+    --mat-mdc-fab-color: #fff;
+  }
+}
+
+.cron {
+  font-family: "nashimura";
+  font-family: "nashimura" !important;
+  text-transform: capitalize;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.cron.future-show {
+  color: $darkGreen !important;
+}
+
+.cron.past-show {
+  color: $darkRed !important;
+}
+

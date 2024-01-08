@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 
 import { DynamoDBClient, DynamoDBClientConfig, PutItemCommand } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, ExecuteStatementCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocumentClient, ExecuteStatementCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 import { NodeHttpHandler } from "@aws-sdk/node-http-handler";
 // import { unmarshall } from '@aws-sdk/util-dynamodb';
-import { fromIni } from "@aws-sdk/credential-providers";
+// import { fromIni } from "@aws-sdk/credential-providers";
 import * as pluralize from 'pluralize';
 
 import { DynamoItem } from '../models/dynamo-item';
@@ -124,7 +125,7 @@ export abstract class RepoBase<T extends DynamoItem> {
         if (typeof value === 'number') {
           return value;
         } else if (typeof value === 'string') {
-          return `'${value}'`;
+          return `'${value.replace(/'/g, "''")}'`;
         } else {
           return value;
         }
@@ -163,7 +164,22 @@ export abstract class RepoBase<T extends DynamoItem> {
     return whereClause;
   }
 
-  async selectAll (expressions: any[], projection: string[] = ['*'], secondaryIndexName = '', config = {}) {
+  private getPartiQLValue(value) {
+    if (typeof value === 'number' ||
+        typeof value === 'boolean') {
+        value = `${value}`;
+    } else if (typeof value === 'object') {
+        value = `${JSON.stringify(value)}`;
+    } else if (typeof value === 'string') {
+        value = `'${value.replace(/'/g, "''")}'`;
+    }
+    return value;
+  }
+
+  async selectAll (
+    { expressions, projection = ['*'], secondaryIndexName = '', config = {} }:
+    { expressions: any[]; projection?: string[]; secondaryIndexName?: string; config?: {}; }
+  ): Promise<any> {
     console.log('SELECTING ALL BY EXPRESSION & PROJECTION: ', expressions, projection);
 
     const whereClause = this.convertToWhereClause(expressions);
@@ -183,8 +199,8 @@ export abstract class RepoBase<T extends DynamoItem> {
     ].join(' ');
 
     console.log('SELECTING OVERALL STATEMENT: ', Statement);
-    const eComm = new ExecuteStatementCommand({ Statement })
-    const result = await this.ddbDocClient.send(eComm, config);
+    const eComm = new ExecuteStatementCommand({ Statement }) as any;
+    const result = await this.ddbDocClient.send(eComm, config) as any;
 
     console.log('SELECTED RESULT: ', result);
     
@@ -192,52 +208,113 @@ export abstract class RepoBase<T extends DynamoItem> {
   }
 
   async putItem (item: T): Promise<any> {
-    item = item.toItem();
-    if (!item.createdDate) {
-      item.createdDate = Date.now();
-    }
-    item.lastEditedDate = Date.now();
+    // item = item.toItem();
+    // if (!item.createdDate) {
+    //   item.createdDate = Date.now();
+    // }
+    // item.lastEditedDate = Date.now();
 
-    console.log('PUTTING ITEM: ', item);
-    const putItemCommand = new PutItemCommand({
-      TableName: this.tableName,
-      Item: item
-    } as any)
-    return this.ddbDocClient.send(putItemCommand as any);
+    // console.log('PUTTING ITEM: ', item);
+    // const putItemCommand = new PutItemCommand({
+    //   TableName: this.tableName,
+    //   Item: item
+    // } as any)
+    // return this.ddbDocClient.send(putItemCommand as any);
+
+    try {
+      if (!item.createdDate) {
+        item.createdDate = Date.now();
+      }
+      item.lastEditedDate = Date.now();
+      item = (item.toItem) ? item.toItem() : item;
+      console.debug('PUTTING ITEM: ', item);
+      const putCommand = new PutCommand({
+        TableName: this.tableName,
+        Item: item,
+      } as any);
+
+      // write item
+      await DDB.docClient.send(putCommand as any);
+
+      return Promise.resolve(true);
+    } catch(ex) {
+      console.debug('ERROR PUTTING ITEM:', item);
+      console.error('EXCEPTION: ', ex);
+      return Promise.reject(false);
+    }
   }
 
-  async updateItem (item: Partial<T> | string, config = {}) {
-    item = item.toString();
-
-    console.log('UPDATING ITEM: ', item);
-    const setters = Object.keys(item)
-      .filter(key => key !== this.partitionKey && key !== this.sortKey)
-      .map(key => {
-        let value;
-        if (typeof item[key] === 'number') {
-          value = `${item[key]}`;
-        }
-        if (typeof item[key] === 'object') {
-          value = `${JSON.stringify(item[key])}`;
-        }
-        if (typeof item[key] === 'string') {
-          value = `'${item[key]}'`;
-        }
-        return `SET "${key}"=${value}\n`;
+  async updateItem(obj: Partial<T> | string | any, config = {}) {
+    console.log('UPDATING ITEM: ', obj);
+    if (obj.toItem) {
+      obj = obj.toItem();
+    }
+    const setters = Object.keys(obj)
+      .filter((key) => key !== this.partitionKey && key !== this.sortKey)
+      .map((key) => {
+        return `SET "${key}"=${this.getPartiQLValue(obj[key])}`;
       });
 
+    const partitionKeyValue = this.getPartiQLValue(obj[this.partitionKey]);
+    const sortKeyValue = this.getPartiQLValue(obj[this.sortKey]);
     const Statement = [
       `UPDATE "${this.tableName}"`,
-      `${setters.join('')}`,
-      `WHERE "${String(this.partitionKey)}"='${(item as any)[this.partitionKey]}' AND "${String(this.sortKey)}"=${(item as any)[this.sortKey]}`
+      `${setters.join('\n')}`,
+      `WHERE "${String(this.partitionKey)}"=${
+        partitionKeyValue
+      } AND "${String(this.sortKey)}"=${sortKeyValue}`,
+      `RETURNING ALL NEW *`
     ].join('\n');
 
-    console.log('UPDATE STATEMENT: ', Statement);
 
-    const result = await this.ddbDocClient.send(new ExecuteStatementCommand({ Statement }), config);
+    console.log('UPDATE STATEMENTS: ', Statement);
 
-    console.log('UPDATE RESULT: ', result);
-    return Promise.resolve(result);
+
+    const updateResult = await this.ddbDocClient.send(
+      new ExecuteStatementCommand({ Statement }) as any,
+      config
+    ) as any;
+
+    console.log('UPDATE RESULT: ', updateResult);
+    let items: any[] = [];
+    if (updateResult?.Items?.length) {
+      items = updateResult.Items;
+    }
+    return Promise.resolve(items);
   }
+
+  // async updateItem (item: Partial<T> | string, config = {}) {
+  //   // item = item.toString();
+
+  //   console.log('UPDATING ITEM: ', item);
+  //   const setters = Object.keys(item)
+  //     .filter(key => key !== this.partitionKey && key !== this.sortKey)
+  //     .map(key => {
+  //       let value;
+  //       if (typeof item[key] === 'number') {
+  //         value = `${item[key]}`;
+  //       }
+  //       if (typeof item[key] === 'object') {
+  //         value = `${JSON.stringify(item[key])}`;
+  //       }
+  //       if (typeof item[key] === 'string') {
+  //         value = `'${item[key]}'`;
+  //       }
+  //       return `SET "${key}"=${value}\n`;
+  //     });
+
+  //   const Statement = [
+  //     `UPDATE "${this.tableName}"`,
+  //     `${setters.join('')}`,
+  //     `WHERE "${String(this.partitionKey)}"='${(item as any)[this.partitionKey]}' AND "${String(this.sortKey)}"=${(item as any)[this.sortKey]}`
+  //   ].join('\n');
+
+  //   console.log('UPDATE STATEMENT: ', Statement);
+
+  //   const result = await this.ddbDocClient.send(new ExecuteStatementCommand({ Statement }) as any, config);
+
+  //   console.log('UPDATE RESULT: ', result);
+  //   return Promise.resolve(result);
+  // }
 
 }

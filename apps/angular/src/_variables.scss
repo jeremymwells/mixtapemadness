@@ -1,7 +1,7 @@
 $text-color: silver;
 $background-color: black;
 $header-height: 3em;
-$padding: $header-height/8;
+$padding: calc($header-height/8);
 $font-size: ($header-height*.3)*2;
 $header-font-color: lighten($text-color, 3%); //#E8D6AA;// lighten($text-color, 3%);
 $header-font-hover-color: #E8D6AA; //darken($text-color, 5%);

@@ -55,6 +55,8 @@ custom:
   sls-bucket-name: ${self:provider.stackName}-sls-state
   web-access-log-bucket-name: ${self:provider.stackName}-web-accesslogs
   web-bucket-name: ${self:provider.stackName}-web
+  userPoolName: ${file(./serverless.config.js):_.stackName}_users
+  userPoolClientName: ${file(./serverless.config.js):_.stackName}_client
   serverless-offline:
     port: 8080
     useChildProcesses: true
@@ -101,4 +103,6 @@ resources:
   - ${file(./infra/web/web-access-log-bucket.resources.yml)}
   - ${file(./infra/web/web-cf-cname.resouces.yml)}
   - ${file(./infra/api/apigw-cf-name.resources.yml)}
+  - ${file(./infra/cognito/user-pool.yml)}
+  - ${file(./infra/cognito/user-pool-client.yml)}
   

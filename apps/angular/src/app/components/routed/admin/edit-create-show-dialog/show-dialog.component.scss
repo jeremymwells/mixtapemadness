@@ -1,0 +1,41 @@
+.timepicker-overlay {
+  z-index: 999999999999 !important;
+}
+.mixtape-dialog {
+  width: 80vw;
+  h1 {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.mixtape-dialog-body {
+  width: 100%;
+}
+
+.mat-mdc-form-field-icon-suffix {
+  margin-right: 7px;
+  font-size: 1.3em;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.mat-mdc-dialog-title {
+  border-bottom: 1px solid gray;
+  font-size: 2.5em;
+}
+
+.mat-mdc-dialog-content {
+  padding: 2em 2em 2em 2em;
+}
+
+.cell {
+  // background-color: red;
+  padding: 5px 5px 5px 5px;
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+}
+.mat-mdc-slider {
+  width: 100%;
+}

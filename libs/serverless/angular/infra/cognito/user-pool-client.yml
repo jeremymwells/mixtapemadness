@@ -1,0 +1,11 @@
+Resources:
+  UserPoolClient:
+    Type: "AWS::Cognito::UserPoolClient"
+    Properties:
+      ClientName: ${self:custom.userPoolClientName}
+      GenerateSecret: False
+      UserPoolId:
+        Ref: UserPool
+
+# userpoolid: us-east-1_RBAd7sUpi
+# clientid: btlfalh7f4ci05v5hfm91s8op

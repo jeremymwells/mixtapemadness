@@ -1,0 +1,100 @@
+<div class="mixtape-dialog">
+  <form #form (ngSubmit)="formValid() && submit()" >
+    <h1 mat-dialog-title>{{ data ? 'Edit Show': 'New Show' }}</h1>
+    <div mat-dialog-content class="mixtape-dialog-body">
+      <h2>Date / Time</h2>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex class="cell">
+          <mat-form-field>
+            <mat-label>Show Date</mat-label>
+            <input matInput [matDatepicker]="picker" [formControl]="date" [matDatepickerFilter]="dateFilter"/>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex class="cell">
+          <mat-form-field>
+            <mat-label>Show Time</mat-label>
+            <input matInput [ngxTimepicker]="timePicker" [formControl]="time" />
+            <ngx-material-timepicker [minutesGap]="15" #timePicker></ngx-material-timepicker>
+            <ngx-material-timepicker-toggle matSuffix [for]="timePicker"></ngx-material-timepicker-toggle>
+          </mat-form-field>
+        </div>
+        <div fxFlex class="cell">
+          <div>Show Duration ({{ duration.value }} hours)</div>
+          <mat-slider
+            discrete
+            showTickMarks
+            min="1"
+            max="6"
+            step="0.25"
+          >
+            <input matSliderThumb [formControl]="duration"/>
+          </mat-slider>
+        </div>
+      </div>
+      <hr />
+      <br />
+      <br />
+      <h2>Venue</h2>
+      <div fxLayout="row">
+        <div fxFlex class="cell">        
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput [formControl]="venue" />
+          </mat-form-field>
+        </div>
+        <div fxFlex class="cell">
+          <mat-form-field>
+            <mat-label>Phone</mat-label>
+            <input matInput type="tel" [formControl]="phone" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row">
+        <div fxFlex class="cell">
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput [formControl]="address" />
+          </mat-form-field>
+        </div>
+        <div fxFlex class="cell">
+          <mat-form-field>
+            <mat-label>City</mat-label>
+            <input matInput [formControl]="city" />
+          </mat-form-field>
+        </div>
+        <div fxFlex class="cell">
+          <mat-form-field class="example-full-width">
+            <mat-label>State</mat-label>
+            <input type="text"
+              placeholder="State"
+              aria-label="State"
+              matInput
+              [formControl]="state"
+              [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of states | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div mat-dialog-actions [align]="'end'">
+    <div>{{ formValid() }}</div>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    
+    <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+    <button
+      mat-button
+      cdkFocusInitial
+      (click)="submit()"
+      [disabled]="!formValid()"
+    >{{ data ? 'Update Show' : 'Create Show' }}</button>
+  </div>
+</div>

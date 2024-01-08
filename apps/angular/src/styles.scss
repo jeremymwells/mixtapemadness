@@ -73,6 +73,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.mtm-header-back-arrow {
+  display: block;
+  margin: -1.25em 0 0 0;
+  padding: 1em 3em 1em 0;
+}
+
 .left {
   text-align: right;
 }
@@ -84,7 +90,7 @@ h1, h2, h3, h4, h5, h6 {
 .center {
   text-align: center;
 }
-html, body { height: 100%; }
+html, body { height: auto; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
@@ -103,4 +109,44 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   // light bit
   background: #e8aaaa !important;
   // background: $header-font-hover-color !important;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 999999999998 !important;
+}
+.timepicker-overlay {
+  z-index: 999999999999 !important;
+}
+
+.timepicker {
+  --body-background-color: #fff;
+  --primary-font-family: 'Roboto', sans-serif;
+  --button-color: deepskyblue;
+
+  /* Timepicker dial */
+  --dial-active-color: #fff;
+  --dial-inactive-color: rgba(255, 255, 255, .5);
+  --dial-background-color: #4050B5; //rgb(255, 0, 221);
+  --dial-editable-active-color: #4050B5; //deepskyblue;
+  --dial-editable-background-color: #fff;
+
+  /* Timepicker clock face */
+  --clock-face-time-active-color: #fff;
+  --clock-face-time-inactive-color: #6c6c6c;
+  --clock-face-inner-time-inactive-color: #929292;
+  --clock-face-time-disabled-color: #c5c5c5;
+  --clock-face-background-color: #f0f0f0;
+  --clock-hand-color: #4050B5; //deepskyblue;
+
+  --button-color: #4050B5;
+}
+
+.ngx-material-timepicker-toggle, .ngx-material-timepicker-toggle svg {
+  stroke: #707070 !important;
+  color: #707070 !important;
+}
+
+.mdc-text-field--invalid {
+  border: 3px solid red !important;
+  border-bottom: 2px solid red !important;
 }

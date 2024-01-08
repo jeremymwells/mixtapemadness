@@ -1,0 +1,30 @@
+<style *ngIf="router.isActive('/sign-in')">
+  @import '/assets/styles/amplify.css';
+  html {
+    font-family: var(--amplify-fonts-default-static);
+  }
+
+  @supports (font-variation-settings: normal) {
+    html {
+      font-family: var(--amplify-fonts-default-variable);
+    }
+  }
+
+  .federated-sign-in-container {
+    flex-direction: column;
+    padding: 0 0 1rem 0;
+  }
+
+  .federated-sign-in-button {
+    display: block;
+  }
+</style>
+<amplify-authenticator [hideSignUp]="true">
+  <ng-template
+    amplifySlot="authenticated"
+    let-signOut="signOut"
+  >
+    <h1>Welcome {{ activeUser | json }}!</h1>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>

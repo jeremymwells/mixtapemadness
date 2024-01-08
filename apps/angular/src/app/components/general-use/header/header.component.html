@@ -1,107 +1,90 @@
-<div fxLayout="row" fxLayoutAlign="space-between" class="mtm-header">
-  <div fxLayout="row">
+<!-- small screen menu-->
+<div fxLayout="row" *ngIf="appSvc.screenSizeMatches(['lt-md', 'md'])" fxLayoutAlign="space-between" class="mtm-header">
+
+  <!-- small menu -->
+  <div fxLayout="row" fxHide="true">
     <div> 
       <i
         class="ai-three-line-horizontal mtm-menu-action mtm-menu-action-float"
-        
         *ngIf="!smallMenuOpen"
-
-        [fxHide.gt-sm]="true"
         (click)="toggleSmallMenuState()"
       ></i>
       <i
         class="ai-cross mtm-menu-action"
-
         *ngIf="smallMenuOpen"
-        [fxHide.gt-sm]="true"
         (click)="toggleSmallMenuState()"
       ></i>
 
-      <div class="mtm-small-menu" *ngIf="smallMenuOpen" [fxHide.gt-sm]="true">
-
-        <a class="mtm-link" [routerLink]="['/home']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
-          <span>home</span>
+      <div class="mtm-small-menu" *ngIf="smallMenuOpen">
+        <a *ngFor="let link of appSvc.menuItems[0]" class="mtm-link" [routerLink]="[link.url]" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>{{ link.text }}</span>
         </a>
-    
-        <a class="mtm-link" [routerLink]="['/about']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
-          <span>about</span>
+        <a *ngFor="let link of appSvc.menuItems[1]" class="mtm-link" [routerLink]="[link.url]" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
+          <span>{{ link.text }}</span>
         </a>
-    
-        <a class="mtm-link" [routerLink]="['/shows']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
-          <span>shows</span>
-        </a>
-    
-        <a class="mtm-link" [routerLink]="['/socials']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
-          <span>social media</span>
-        </a>
-
-        <a class="mtm-link" [routerLink]="['/video']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
-          <span>video</span>
-        </a>
-    
-        <a class="mtm-link" [routerLink]="['/subscribe']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
-          <span>subscribe</span>
-        </a>
-    
-        <a class="mtm-link" [routerLink]="['/store']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
-          <span>store</span>
-        </a>
-    
-        <a class="mtm-link" [routerLink]="['/contact']" (click)="toggleSmallMenuState()" routerLinkActive="active-link">
-          <span>contact</span>
-        </a>
-
       </div>
     </div>
   </div>
-
-  <div fxLayout="row" fxLayoutAlign="space-between">
-
-    <a class="mtm-link" [routerLink]="['/home']" [fxHide.lt-md]="true" routerLinkActive="active-link">
-      <span>home</span>
-    </a>
-
-    <a class="mtm-link" [routerLink]="['/about']" [fxHide.lt-md]="true" routerLinkActive="active-link">
-      <span>about</span>
-    </a>
-
-    <a class="mtm-link" [routerLink]="['/shows']" [fxHide.lt-md]="true" routerLinkActive="active-link">
-      <span>shows</span>
-    </a>
-
-    <a class="mtm-link" [routerLink]="['/socials']" [fxHide.lt-md]="true" routerLinkActive="active-link">
-      <span>social media</span>
-    </a>
-
-    <div fxLayout="row" class="mtm-logo-container">
-      <div
-        [ngClass.lt-md]="{
-          'mtm-header-center-logo-xs': true,
-          'mtn-header-center-logo-menu-fix': smallMenuOpen
-        }"
-        ngClass.gt-xs="mtm-header-center-logo"
-      >
-        <a [routerLink]="['/home']" (click)="smallMenuOpen ? toggleSmallMenuState(): null">
-          <img [src]="logoImageSrc" (mouseover)="logoImageSrc = srcTwo" (mouseout)="logoImageSrc = srcOne" alt="Mixtape Madness Logo"/>
-        </a>
-      </div>
+  <div>
+    <mixtapemadness-link
+      *ngIf="!appSvc.currentPathIs('/home')"
+      [smallText]="currentPath"
+      leftContent
+      [url]="appSvc.backButton"
+      icon="ai-chevron-left"
+      smallText="Back"
+      clazz="social-link mtm-header-back-arrow"
+      [omitSmallText]="true"
+    ></mixtapemadness-link>
+  </div>
+  <div fxLayout="row" fxFlex="100" class="mtm-logo-container">
+    <div
+      [attr.style]="'text-align: center; margin-left:' + (!appSvc.currentPathIs('/home') ? '-1em' : '2px' )+ '; width: 100%'"
+      class="mtm-header-center-logo-xs {{ !appSvc.currentPathIs('/home') ? 'logo-adjust': '' }}"
+    >
+      <a [routerLink]="['/home']" (click)="smallMenuOpen ? toggleSmallMenuState(): null">
+        <img [src]="logoImageSrc" (mouseover)="logoImageSrc = srcTwo" (mouseout)="logoImageSrc = srcOne" alt="Mixtape Madness Logo"/>
+      </a>
     </div>
+  </div>
 
-    <a class="mtm-link" [routerLink]="['/video']" [fxHide.lt-md]="true" routerLinkActive="active-link">
-      <span>video</span>
-    </a>
+  <div fxLayout="row">
+    &nbsp;
+  </div>
+</div>
 
-    <a class="mtm-link" [routerLink]="['/subscribe']" [fxHide.lt-md]="true" routerLinkActive="active-link">
-      <span>subscribe</span>
-    </a>
+<!-- gt-md screen -->
+<div fxLayout="row" *ngIf="appSvc.screenSizeMatches(['gt-md'])" fxLayoutAlign="space-between" class="mtm-header">
+  <div>
+    <mixtapemadness-link
+      *ngIf="!appSvc.currentPathIs('/home')"
+      [smallText]="currentPath"
+      leftContent
+      [url]="appSvc.backButton"
+      icon="ai-chevron-left"
+      smallText="Back"
+      clazz="social-link mtm-header-back-arrow"
+      [omitSmallText]="true"
+    ></mixtapemadness-link>
+  </div>
+  <div fxLayout="row" fxFlex="100" class="mtm-logo-container">
+    <div
+      [attr.style]="'text-align: center; margin-left: ' + (!appSvc.currentPathIs('/home') ? '-1em' : '2px' )+ '; width: 100%'"
+      class="mtm-header-center-logo {{ !appSvc.currentPathIs('/home') ? 'logo-adjust': '' }}"
+    >
+      <a [routerLink]="['/home']" (click)="smallMenuOpen ? toggleSmallMenuState(): null">
+        <img [src]="logoImageSrc" (mouseover)="logoImageSrc = srcTwo" (mouseout)="logoImageSrc = srcOne" alt="Mixtape Madness Logo"/>
+      </a>
+    </div>
+  </div>
 
-    <a class="mtm-link" [routerLink]="['/store']" [fxHide.lt-md]="true" routerLinkActive="active-link">
-      <span>store</span>
-    </a>
-
-    <a class="mtm-link" [routerLink]="['/contact']" [fxHide.lt-md]="true" routerLinkActive="active-link">
-      <span>contact</span>
-    </a>
+  <div
+    *ngIf="userName"
+    class="userName"
+  >
+    <span>
+      Hi, {{ userName }}
+    </span>
 
   </div>
 

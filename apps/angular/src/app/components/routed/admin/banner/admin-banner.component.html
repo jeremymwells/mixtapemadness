@@ -1,0 +1,79 @@
+<div class="vertical-slide left">
+  <div>&lt;-- | --&gt;</div>
+  <mat-slider
+    [max]="200"
+    [min]="1"
+    [step]="1"
+    [showTickMarks]="true"
+    vertical
+  >
+    <input matSliderThumb [(ngModel)]="pictop">
+  </mat-slider>
+</div>
+
+<div class="vertical-slide right">
+  <mat-slider
+    [max]="200"
+    [min]="1"
+    [step]="1"
+    [showTickMarks]="true"
+    vertical
+  >
+    <input matSliderThumb [(ngModel)]="texttop">
+  </mat-slider>
+  <div>&lt;-- | --&gt;</div>
+</div>
+
+
+<div fxLayout="row">
+  <div fxFlex="50" style="text-align: center;">
+    <span>zoom</span>
+    <mat-slider
+      style="width: 50%"
+      [max]="100"
+      [min]="1"
+      [step]="1"
+      [showTickMarks]="true"
+    >
+      <input matSliderThumb [(ngModel)]="picZoomValue">
+    </mat-slider>
+    <span>&nbsp;&nbsp;&nbsp;{{ picZoomSlideValue }} %</span>
+  </div>
+  <div *ngIf="false" fxFlex style="text-align: center; white-space: nowrap;">
+    <button mat-raised-button color="accent" (click)="downloadPng()">
+      Download png
+      <i class="ai-download"></i>
+    </button>
+  </div>
+  <div fxFlex="50" style="text-align: center;">
+    <span>zoom</span>
+    <mat-slider
+      style="width: 50%"
+      [max]="100"
+      [min]="1"
+      [step]="1"
+      [showTickMarks]="true"
+    >
+      <input matSliderThumb [(ngModel)]="showsZoomValue">
+    </mat-slider>
+    <span>&nbsp;&nbsp;&nbsp;{{ showsZoomSlideValue }} %</span>
+  </div>
+</div>
+<br />
+<br />
+<br />
+<div #chrome class="rounded-row" [attr.style]="rowStyle">
+
+  <div class="pic" [attr.style]="picStyle">
+    <img src="assets/images/mixtape-banner-alt.png" />
+  </div>
+  <div class="shows" style="top:{{texttop}}px;">
+    <mixtapemadness-shows-list
+      [showToggle]="false"
+      [collapseBuffers]="true"
+      [showButtons]="false"
+      [zoom]="showsZoom"
+    ></mixtapemadness-shows-list>
+  </div>
+
+</div>

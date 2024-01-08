@@ -1,0 +1,24 @@
+<!-- <div fxLayout="row">
+  <div fxFlex>
+    <button mat-raised-button aria-label="Edit Shows" [routerLink]="['/admin/shows']">
+      Edit Shows <i class="ai-pencil"></i>
+    </button>
+  </div>
+  <div fxFlex>
+    <button mat-raised-button aria-label="Create Banner" [routerLink]="['/admin/shows']">
+      Create Banner <i class="ai-image"></i>
+    </button>
+  </div>
+</div> -->
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <a mat-raised-button aria-label="Edit Shows" color="warn" [routerLink]="['/admin/shows']">
+      Edit Shows <i class="ai-edit"></i>
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a mat-raised-button aria-label="Create Banner" color="primary" [routerLink]="['/admin/banner']">
+      Create Banner <i class="ai-image"></i>
+    </a>
+  </mat-grid-tile>
+</mat-grid-list>

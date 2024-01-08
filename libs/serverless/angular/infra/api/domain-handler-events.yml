@@ -12,7 +12,7 @@ appMessage:
             message: true
 
 
-shows:
+getShows:
   name: ${self:provider.stackName}-app-shows
   handler: ./src/api/handlers/shows.get
   events:
@@ -25,12 +25,20 @@ shows:
           querystrings:
             year: true
 
-
-social:
-  name: ${self:provider.stackName}-app-social
-  handler: ./src/api/handlers/youtube.getVideos
+createUpdateShows:
+  name: ${self:provider.stackName}-app-shows-create-update
+  handler: ./src/api/handlers/shows.write
   events:
   - http:
-      path: api/social/yt
+      path: api/shows
       private: false
-      method: get
+      method: post
+
+# social:
+#   name: ${self:provider.stackName}-app-social
+#   handler: ./src/api/handlers/youtube.getVideos
+#   events:
+#   - http:
+#       path: api/social/yt
+#       private: false
+#       method: get

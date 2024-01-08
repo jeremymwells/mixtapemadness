@@ -1,0 +1,133 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1em;">
+  <button mat-raised-button aria-label="add show" (click)="openDialog()">
+    <i class="ai-plus"></i>
+    New Show
+    <i class="ai-plus"></i>
+  </button>
+</div>
+<div fxLayout="row" class="show-list-container">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+  
+    <ng-container matColumnDef="cron">
+      <th  mat-header-cell *matHeaderCellDef mat-sort-header> When </th>
+      <td
+        mat-cell
+        [ngClass]="{
+          'cron': true,
+          'past-show': appSvc.showsService.isPastShow(show),
+          'future-show': !appSvc.showsService.isPastShow(show)
+        }"
+        *matCellDef="let show"
+      >
+        {{ show.cron }}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+      <td
+        mat-cell
+        [ngClass]="{
+          'past-show': appSvc.showsService.isPastShow(show),
+          'future-show': !appSvc.showsService.isPastShow(show)
+        }"
+        *matCellDef="let show"
+      >
+        {{ appSvc.showsService.getDisplayDate(show)}}&nbsp;
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+      <td
+        mat-cell
+        [ngClass]="{
+          'past-show': appSvc.showsService.isPastShow(show),
+          'future-show': !appSvc.showsService.isPastShow(show)
+        }"
+        *matCellDef="let show"
+      >
+        {{ appSvc.showsService.getDuration(show) }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="venue">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Venue </th>
+      <td
+        mat-cell
+        [ngClass]="{
+          'past-show': appSvc.showsService.isPastShow(show),
+          'future-show': !appSvc.showsService.isPastShow(show)
+        }"
+        *matCellDef="let show"
+      >
+        {{ show.venue }}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+      <td
+        mat-cell
+        [ngClass]="{
+          'past-show': appSvc.showsService.isPastShow(show),
+          'future-show': !appSvc.showsService.isPastShow(show)
+        }"
+        *matCellDef="let show"
+      >
+        {{ formatPhoneNumber(show.phone) }}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+      <td 
+        mat-cell
+        [ngClass]="{
+          'past-show': appSvc.showsService.isPastShow(show),
+          'future-show': !appSvc.showsService.isPastShow(show)
+        }"
+        *matCellDef="let show"
+      >
+        {{ show.address }}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> edit </th>
+      <td
+        mat-cell
+        [ngClass]="{
+          'past-show': appSvc.showsService.isPastShow(show),
+          'future-show': !appSvc.showsService.isPastShow(show)
+        }"
+        *matCellDef="let show"
+      >
+        <div fxLayout="row">
+          <button mat-mini-fab aria-label="edit show" (click)="openDialog(show)">
+            <i class="ai-pencil"></i>
+          </button>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+          <button *ngIf="false" mat-mini-fab aria-label="delete show">
+            <i class="ai-trash-can"></i>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<div fxLayout="row" (click)="showSecretRow = true" fxLayoutAlign="center center" style="margin-top: 1em; width: 100%; min-height: 1em; cursor: pointer;">
+  <a *ngIf="showSecretRow" mat-raised-button aria-label="add show" download="migrations-since-{{ lastMigrationDate }}.json" href="{{ downloadJsonHref }}">
+    <i class="ai-download"></i>
+      Download JSON since {{ lastMigrationDateFmt }}
+    <i class="ai-download"></i>
+  </a>
+</div>

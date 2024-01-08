@@ -1,21 +1,113 @@
 
 <div class="mtm-spinner-holder">
 
-  <mixtapemadness-sub-head>
-    <div centerContent>
-      <div [fxHide.lt-md]="true" style="border-radius: 15px 15px 100px 15px; z-index: 0;background-color: black; opacity: .7; width: 800px; overflow: hidden; height: 4em; top: 2em; margin-left: -3em; position: absolute;">&nbsp;</div>
-      <h1 [fxHide.lt-md]="true" style="white-space: nowrap; margin: 1em 0 .5em -20px; font-size: 3em; z-index: 1; position: relative">
-        We are mixtape madness
-      </h1>
-      <div [fxHide.gt-sm]="true" style="border-radius: 15px 15px 100px 15px; z-index: 0;background-color: black; opacity: .7; width: 400px; overflow: hidden; height: 4em; top: 2em; margin-left: -3em; position: absolute;">&nbsp;</div>
-      <h1 [fxHide.gt-sm]="true" style="white-space: nowrap; margin: 1em 0 .5em -20px; line-height: 2em; font-size: 2em; z-index: 1; position: relative">
+  <!-- <mixtapemadness-sub-head>
+
+     md, gt-md screen 
+    <div centerContent [fxHide.lt-md]="true">
+      <div style="border-radius: 15px 15px 100px 15px; z-index: 0;background-color: black; opacity: .7; width: 800px; overflow: hidden; height: 4em; top: 2em; margin-left: -3em; position: absolute;">&nbsp;</div>
+      <h1 style="white-space: nowrap; margin: 1em 0 .5em -20px; font-size: 3em; z-index: 1; position: relative">
         We are mixtape madness
       </h1>
     </div>
-  </mixtapemadness-sub-head>
+
+     small screen 
+    <div centerContent [fxHide.gt-sm]="true">
+      <div style="display:none; border-radius: 15px 15px 100px 15px; z-index: 0;background-color: black; opacity: .7; width: 100%; overflow: hidden; height: 4em; top: 2em; margin-left: -3em; position: absolute; right:-1em">&nbsp;</div>
+      <h1 style="display: none; white-space: nowrap; margin: 1em 0 .5em -20px; line-height: 2em; font-size: 2em; z-index: 1; position: relative">
+        We are mixtape madness
+      </h1>
+    </div>
+
+  </mixtapemadness-sub-head> -->
+  <div centerContent>&nbsp;</div>
+  <div centerContent>&nbsp;</div>
+  <div class="mtm-home-container">
+
+    <!-- gt-md -->
+    <div *ngIf="appSvc.screenSizeMatches(['gt-md'])" class="mtm-container-center">
+      <div
+        *ngFor="let row of appSvc.homePageItems; index as i"
+        fxLayout="row"
+        fxLayoutAlign="space-around"
+        class="mtm-home-row-gt-md"
+      >
+        <div
+          *ngFor="let item of row; let first = first; let last = last"
+          fxFlex
+          [fxLayoutAlign]="row.length === 2 && i === 1 ? first ? 'end center': last ? 'start center': 'center center': 'center center'">
+            <a 
+              *ngIf="!item.useRouterLink || item.url.includes('tel:+')"
+              class="mtm-home-button"
+              [attr.href]="item.url"
+              target="_blank"
+              [ngClass]="{ 'mtm-gap-right': first, 'mtm-gap-left': last }"
+            >
+              <div class="bg {{ item.url.includes('tel:+') ? '' : 'bg-ext' }}">&nbsp;</div>
+              <img *ngIf="item.img" [attr.src]="item.img" />
+              <i *ngIf="item.icon" [ngClass]="[item.icon, 'mtm-social-icon']"></i>
+              <h2>{{ item.text }}</h2>
+              <i *ngIf="!item.url.includes('tel:+')" class="ai-link-out"></i>
+            </a>
+
+            <a
+              *ngIf="item.useRouterLink"
+              class="mtm-home-button"
+              [routerLink]="[item.url]"
+              [ngClass]="{ 'mtm-gap-right': first, 'mtm-gap-left': last }"
+            >
+              <div class="bg">&nbsp;</div>
+              <img *ngIf="item.img" [attr.src]="item.img" />
+              <i *ngIf="item.icon" [ngClass]="[item.icon, 'mtm-social-icon']"></i>
+              <h2>{{ item.text }}</h2>
+            </a>
+        </div>
+      </div>
+    </div> 
+
+    <!-- md, lt-md -->
+    <div *ngIf="appSvc.screenSizeMatches(['md', 'lt-md'])" class="mtm-home-container-column">
+      <div
+        *ngFor="let item of appSvc.homePageItems.flat()"
+        class="mtm-home-row-md-lt-md"
+      >
+        <!-- <div *ngFor="let item of row"> -->
+          <a *ngIf="!item.useRouterLink || item.url.includes('tel:+')" class="mtm-home-button-md-let-md" [attr.href]="item.url" target="_blank">
+            <div class="bg {{ item.url.includes('tel:+') ? '' : 'bg-ext' }}">&nbsp;</div>
+            <img *ngIf="item.img" [attr.src]="item.img" />
+            <i *ngIf="item.icon" [ngClass]="[item.icon, 'mtm-social-icon']"></i>
+            <h2 [attr.style]="appSvc.screenSizeMatches(['xs']) ? 'font-size: 1.25em;' : ''">{{ item.text }}</h2>
+            <i *ngIf="!item.url.includes('tel:+')" class="ai-link-out"></i>
+          </a>
+
+          <a *ngIf="item.useRouterLink" class="mtm-home-button-md-let-md" [routerLink]="[item.url]" >
+            <div class="bg">&nbsp;</div>
+            <img *ngIf="item.img" [attr.src]="item.img" />
+            <i *ngIf="item.icon" [ngClass]="[item.icon, 'mtm-social-icon']"></i>
+            <h2 [attr.style]="appSvc.screenSizeMatches(['xs']) ? 'font-size: 1.25em;' : ''">{{ item.text }}</h2>
+          </a>
+        <!-- </div> -->
+      </div>
+    </div> 
+  </div>
+  
 
 </div>
 
-<div class="mtm-image-holder">
+
+
+<div
+  ngClass.gt-md="mtm-image-holder"
+  ngClass.md="mtm-image-holder"
+  ngClass.lt-md="mtm-image-holder-sm"
+>
+  <img src="assets/images/mixtape_home2.png" />
+</div>
+
+<div
+  ngClass.gt-md="mtm-image-holder-bonus"
+  ngClass.md="mtm-image-holder-bonus"
+  ngClass.lt-md="mtm-image-holder-bonus-sm"
+>
   <img src="assets/images/mixtape_home2.png" />
 </div>
