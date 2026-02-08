@@ -12,12 +12,11 @@ jobs:
     name: Run Data Migrations
     runs-on: ubuntu-latest
     needs: [ quality-gate ]
-    environment: 
+    environment:
       name: prod
     steps:
-      - uses: actions/checkout@v3
-        with:
-          node-version: 14x
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/composite/job-defaults
       - uses: ./.github/workflows/composite/data-migrations
         with:
           stage: prod
@@ -31,9 +30,8 @@ jobs:
     environment:
       name: prod
     steps:
-      - uses: actions/checkout@v3
-        with:
-          node-version: 14x
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/composite/job-defaults
       - uses: ./.github/workflows/composite/aws-connected-command
         with:
           command: npm run deploy:prod

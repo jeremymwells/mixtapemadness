@@ -18,9 +18,8 @@ jobs:
     name: Verify Prod Tag
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          node-version: 14x
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/composite/job-defaults
       - uses: ./.github/workflows/composite/prod-tag-gate
         id: tagValidator
         with:
@@ -35,11 +34,11 @@ jobs:
     environment:
       name: prod
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          node-version: 14x
           ref: ${{ github.head_ref }}
           fetch-depth: 0
+      - uses: ./.github/workflows/composite/job-defaults
 
       # Have to include this because the validation result cannot be read from another job (SUCKS)
       - uses: ./.github/workflows/composite/tag-validator

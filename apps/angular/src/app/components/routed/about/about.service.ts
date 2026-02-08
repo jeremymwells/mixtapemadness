@@ -92,19 +92,6 @@ export class AboutService {
       ]
     }),
     new PersonOrPersons({
-      key: 'stove',
-      title: 'Jason "Stove" Stachowiak',
-      writeup: ['Plays guitar, sings harmonies'],
-      images: [
-        new Image('assets/images/about/stove_thumb1.jpeg'),
-        new Image('assets/images/about/stove_thumb2.jpeg'),
-        new Image('assets/images/about/stove1.png'),
-        new Image('assets/images/about/stove3.png'),
-        new Image('assets/images/about/stove4.png'),
-        new Image('assets/images/about/stove5.png'),
-      ]
-    }),
-    new PersonOrPersons({
       key: 'jeremy',
       title: 'Jeremy Wells',
       writeup: ['Plays bass, sings lead / harmonies'],

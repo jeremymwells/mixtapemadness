@@ -3,9 +3,9 @@ description: Specifies Node Runtime, Installs Deps, and Caches node_modules
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
-        node-version: '14.x'
+        node-version: '20.x'
 
     # - id: node-cache-api
     #   uses: actions/cache@v2

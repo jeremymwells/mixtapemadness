@@ -94,6 +94,7 @@ export class EditShowsComponent implements OnInit, OnDestroy { //implements OnIn
 
   async ngOnInit(): Promise<void> {
     await this.appSvc.reinitShows();
+    this.appSvc.showsService.loadAllYears();
     this.appSvc.setBackButton(['/admin']);
 
     this.sub.add(this.appSvc.showsSplit$.subscribe((next: any) => {

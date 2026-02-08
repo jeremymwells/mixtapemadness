@@ -6,7 +6,7 @@ configValidationMode: off
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs20.x
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-1'}
   profile: ${self:service}-${self:custom.env-key}

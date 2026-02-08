@@ -11,7 +11,7 @@
     <h1 centerContent class="mtm-upcoming" title="View {{showsService.getTitle(!showsService.showPastShows)}}">
       {{ showsService.title }}
     </h1>
-  
+
     <div class="left" rightContent style="position: relative">
       <div ngClass.lt-md="nudger-sm" ngClass.gt-sm="nudger">
 
@@ -27,130 +27,260 @@
         </div>
       </div>
     </div>
-    
+
   </mixtapemadness-sub-head>
-  
+
   <div class="mtm-shows-body {{ collapseBuffers ? 'mtm-shows-body-collapse' : ''}}">
-    
+
     <div class="mtm-shows-inner" [attr.style]="'zoom:' + zoom">
-  
-      <!-- MEDIUM SCREEN OR LARGER CONTENT -->
-      <div
-        fxHide.lt-md="true"
-        fxLayout="row"
-        fxLayoutAlign="space-evenly center"
-        *ngFor="let show of showsService.displayShows;"
-        class="mtm-show-row"
-        [attr.style]="mtmShowRowStyle"
-      >
-  
-        <div *ngIf="!collapseBuffers" fxFlex="12.5">&nbsp;</div>
-  
-  
-        <div fxFlex="{{ !collapseBuffers ? 70 : '' }}" class="mtm-show-part">
-  
-          <div fxFlex="{{(40 * zoom) + 1}}">
-  
-            <div fxLayout="row" fxLayoutAlign="space-between">
-              <h1 fxFlex class="mtm-shows-left mtm-show-date">
-                {{ showsService.getDisplayDate(show)}}
-              </h1>
+
+      <!-- UPCOMING SHOWS (flat list) -->
+      <ng-container *ngIf="!showsService.showPastShows">
+
+        <!-- MEDIUM SCREEN OR LARGER CONTENT -->
+        <div
+          fxHide.lt-md="true"
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngFor="let show of showsService.displayShows;"
+          class="mtm-show-row"
+          [attr.style]="mtmShowRowStyle"
+        >
+
+          <div *ngIf="!collapseBuffers" fxFlex="12.5">&nbsp;</div>
+
+
+          <div fxFlex="{{ !collapseBuffers ? 70 : '' }}" class="mtm-show-part">
+
+            <div fxFlex="{{(40 * zoom) + 1}}">
+
+              <div fxLayout="row" fxLayoutAlign="space-between">
+                <h1 fxFlex class="mtm-shows-left mtm-show-date">
+                  {{ showsService.getDisplayDate(show)}}
+                </h1>
+              </div>
+
+              <div fxLayout="row" fxLayoutAlign="space-between">
+                <div fxFlex class="mtm-shows-left mtm-show-duration">
+                  {{ showsService.getDuration(show) }}
+                </div>
+              </div>
+
             </div>
-            
-            <div fxLayout="row" fxLayoutAlign="space-between">
-              <div fxFlex class="mtm-shows-left mtm-show-duration">
+
+            <div fxFlex="{{5*zoom}}" *ngIf="collapseBuffers">&nbsp;</div>
+
+            <div fxFlex>
+              <div fxLayout="row" fxLayoutAlign="space-between">
+                <h1 fxFlex class="mtm-shows-center  mtm-venue">
+                  {{show.venue}}
+                </h1>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between">
+                <div fxFlex class="mtm-shows-center">
+                  {{ showsService.getDisplayAddress(show) }}
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="showButtons" fxFlex>
+              <div fxLayout="row" fxLayoutAlign="end center">
+                <div fxFlex class="mtm-shows-right-lg">
+                  <a *ngIf="show.phone" class="mtm-link green" href="tel:{{show.phone}}" title="Call {{show.venue}}" (click)="$event.stopPropagation()">
+                    <i class="ai-phone"></i>
+                  </a>
+                  <a
+                    *ngIf="show.address"
+                    class="mtm-link pink"
+                    href="https://www.google.com/maps/search/?api=1&query={{showsService.getEncodedAddress(show)}}&query_place_id={{showsService.getEncodedVenue(show)}}"
+                    target="_blank"
+                  >
+                    <i class="ai-location" title="Map {{show.venue}}"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div fxFlex="12.5" *ngIf="!collapseBuffers">&nbsp;</div>
+
+        </div>
+
+        <!-- SMALL SCREEN OR SMALLER CONTENT -->
+        <div
+          fxHide.gt-sm="true"
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngFor="let show of showsService.displayShows;"
+          class="mtm-show-row"
+        >
+          <div fxFlex class="mtm-show-part" *ngIf="!collapseBuffers">
+
+            <div fxLayout="row nowrap" fxLayoutAlign="space-between center" class="">
+              <h2 fxFlex class="mtm-show-date">
+                {{ showsService.getDisplayDate(show)}}
+              </h2>
+              <div fxFlex class="left mtm-show-duration" style="line-height: 2em;">
                 {{ showsService.getDuration(show) }}
               </div>
             </div>
-  
-          </div>
 
-          <div fxFlex="{{5*zoom}}" *ngIf="collapseBuffers">&nbsp;</div>
-  
-          <div fxFlex>
-            <div fxLayout="row" fxLayoutAlign="space-between">
-              <h1 fxFlex class="mtm-shows-center  mtm-venue">
+            <div fxLayout="row nowrap" fxLayoutAlign="space-between center" class="mtm-shows-right">
+              <h2 fxFlex class="right mtm-venue">
                 {{show.venue}}
-              </h1>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="space-between">
-              <div fxFlex class="mtm-shows-center">
-                {{ showsService.getDisplayAddress(show) }}
-              </div>
-            </div>
-          </div>
-  
-          <div *ngIf="showButtons" fxFlex>
-            <div fxLayout="row" fxLayoutAlign="end center">
-              <div fxFlex class="mtm-shows-right-lg">
+              </h2>
+
+              <div *ngIf="showButtons" class="mtm-show-icons">
+
                 <a *ngIf="show.phone" class="mtm-link green" href="tel:{{show.phone}}" title="Call {{show.venue}}" (click)="$event.stopPropagation()">
                   <i class="ai-phone"></i>
                 </a>
-                <a
-                  *ngIf="show.address"
+
+                <a *ngIf="show.address"
                   class="mtm-link pink"
                   href="https://www.google.com/maps/search/?api=1&query={{showsService.getEncodedAddress(show)}}&query_place_id={{showsService.getEncodedVenue(show)}}"
                   target="_blank"
                 >
                   <i class="ai-location" title="Map {{show.venue}}"></i>
                 </a>
+
               </div>
             </div>
+
           </div>
-  
+
         </div>
-  
-        <div fxFlex="12.5" *ngIf="!collapseBuffers">&nbsp;</div>
-  
-      </div>
-  
-      <!-- SMALL SCREEN OR SMALLER CONTENT      fxHide.gt-sm="true"-->
-      <div
-        fxHide.gt-sm="true"
-        fxLayout="row"
-        fxLayoutAlign="space-evenly center"
-        *ngFor="let show of showsService.displayShows;"
-        class="mtm-show-row"
-      > 
-        <div fxFlex class="mtm-show-part" *ngIf="!collapseBuffers">
-  
-          <div fxLayout="row nowrap" fxLayoutAlign="space-between center" class="">
-            <h2 fxFlex class="mtm-show-date">
-              {{ showsService.getDisplayDate(show)}}
-            </h2>
-            <div fxFlex class="left mtm-show-duration" style="line-height: 2em;">
-              {{ showsService.getDuration(show) }}
+
+      </ng-container>
+
+      <!-- PAST SHOWS (grouped by year) -->
+      <ng-container *ngIf="showsService.showPastShows">
+
+        <ng-container *ngFor="let yearGroup of showsService.pastShowsByYear">
+
+          <h2 class="mtm-year-heading">{{ yearGroup.year }}</h2>
+
+          <!-- MEDIUM SCREEN OR LARGER CONTENT -->
+          <div
+            fxHide.lt-md="true"
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngFor="let show of yearGroup.shows;"
+            class="mtm-show-row"
+            [attr.style]="mtmShowRowStyle"
+          >
+
+            <div *ngIf="!collapseBuffers" fxFlex="12.5">&nbsp;</div>
+
+
+            <div fxFlex="{{ !collapseBuffers ? 70 : '' }}" class="mtm-show-part">
+
+              <div fxFlex="{{(40 * zoom) + 1}}">
+
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                  <h1 fxFlex class="mtm-shows-left mtm-show-date">
+                    {{ showsService.getDisplayDate(show)}}
+                  </h1>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                  <div fxFlex class="mtm-shows-left mtm-show-duration">
+                    {{ showsService.getDuration(show) }}
+                  </div>
+                </div>
+
+              </div>
+
+              <div fxFlex="{{5*zoom}}" *ngIf="collapseBuffers">&nbsp;</div>
+
+              <div fxFlex>
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                  <h1 fxFlex class="mtm-shows-center  mtm-venue">
+                    {{show.venue}}
+                  </h1>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                  <div fxFlex class="mtm-shows-center">
+                    {{ showsService.getDisplayAddress(show) }}
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="showButtons" fxFlex>
+                <div fxLayout="row" fxLayoutAlign="end center">
+                  <div fxFlex class="mtm-shows-right-lg">
+                    <a *ngIf="show.phone" class="mtm-link green" href="tel:{{show.phone}}" title="Call {{show.venue}}" (click)="$event.stopPropagation()">
+                      <i class="ai-phone"></i>
+                    </a>
+                    <a
+                      *ngIf="show.address"
+                      class="mtm-link pink"
+                      href="https://www.google.com/maps/search/?api=1&query={{showsService.getEncodedAddress(show)}}&query_place_id={{showsService.getEncodedVenue(show)}}"
+                      target="_blank"
+                    >
+                      <i class="ai-location" title="Map {{show.venue}}"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
             </div>
+
+            <div fxFlex="12.5" *ngIf="!collapseBuffers">&nbsp;</div>
+
           </div>
-  
-          <div fxLayout="row nowrap" fxLayoutAlign="space-between center" class="mtm-shows-right">
-            <h2 fxFlex="80" class="right mtm-venue">
-              {{show.venue}}
-            </h2>
 
-            <div *ngIf="showButtons" fxFlex class="mtm-shows-left left">
+          <!-- SMALL SCREEN OR SMALLER CONTENT -->
+          <div
+            fxHide.gt-sm="true"
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngFor="let show of yearGroup.shows;"
+            class="mtm-show-row"
+          >
+            <div fxFlex class="mtm-show-part" *ngIf="!collapseBuffers">
 
-              <a *ngIf="show.phone" class="mtm-link green" href="tel:{{show.phone}}" title="Call {{show.venue}}" (click)="$event.stopPropagation()">
-                <i class="ai-phone"></i>
-              </a>
+              <div fxLayout="row nowrap" fxLayoutAlign="space-between center" class="">
+                <h2 fxFlex class="mtm-show-date">
+                  {{ showsService.getDisplayDate(show)}}
+                </h2>
+                <div fxFlex class="left mtm-show-duration" style="line-height: 2em;">
+                  {{ showsService.getDuration(show) }}
+                </div>
+              </div>
 
-              <a *ngIf="show.address"
-                class="mtm-link pink"
-                href="https://www.google.com/maps/search/?api=1&query={{showsService.getEncodedAddress(show)}}&query_place_id={{showsService.getEncodedVenue(show)}}"
-                target="_blank"
-              >
-                <i class="ai-location" title="Map {{show.venue}}"></i>
-              </a>
+              <div fxLayout="row nowrap" fxLayoutAlign="space-between center" class="mtm-shows-right">
+                <h2 fxFlex class="right mtm-venue">
+                  {{show.venue}}
+                </h2>
+
+                <div *ngIf="showButtons" class="mtm-show-icons">
+
+                  <a *ngIf="show.phone" class="mtm-link green" href="tel:{{show.phone}}" title="Call {{show.venue}}" (click)="$event.stopPropagation()">
+                    <i class="ai-phone"></i>
+                  </a>
+
+                  <a *ngIf="show.address"
+                    class="mtm-link pink"
+                    href="https://www.google.com/maps/search/?api=1&query={{showsService.getEncodedAddress(show)}}&query_place_id={{showsService.getEncodedVenue(show)}}"
+                    target="_blank"
+                  >
+                    <i class="ai-location" title="Map {{show.venue}}"></i>
+                  </a>
+
+                </div>
+              </div>
 
             </div>
+
           </div>
-  
-        </div>
-  
-      </div>
+
+        </ng-container>
+
+      </ng-container>
 
     </div>
-  
+
   </div>
 </div>
-

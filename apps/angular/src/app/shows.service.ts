@@ -10,12 +10,19 @@ import { HttpClient } from '@angular/common/http';
 export class ShowsService {
   private _sub = new Subscription();
 
-  private _showYears = [2022, 2023, 2024, 2025];
+  private _currentYear = new Date().getFullYear();
+  private _showYears = [this._currentYear];
+  private _allYears = Array.from(
+    { length: this._currentYear - 2022 + 1 },
+    (_, i) => 2022 + i
+  );
   private _shows = [] as any[];
+  private _allYearsLoaded = false;
   title = '';
   showPastShows = false;
   displayShows = [] as any[];
   pastShows = [] as any[];
+  pastShowsByYear = [] as { year: number; shows: any[] }[];
   futureShows = [] as any[];
   showsLoaded = false;
   showsSplit$ = new Subject<any>();
@@ -34,12 +41,12 @@ export class ShowsService {
     this._sub = new Subscription();
     this._sub.add(
       forkJoin(
-        this._showYears.map((showYear) => 
+        this._showYears.map((showYear) =>
           this._http.get(`api/shows?year=${showYear}`)
         )
       )
       .subscribe((showsByYear: any) => {
-        showsByYear.forEach((showYearShows: any[]) => {      
+        showsByYear.forEach((showYearShows: any[]) => {
 
           [
             ...this._shows,
@@ -51,19 +58,48 @@ export class ShowsService {
           this._shows = Object.values(this.showHash);
 
           this.sortAndDivideShows();
-          this.showsSplit$.next({
-            futureShows: this.futureShows,
-            pastShows: this.pastShows,
-            displayShows: this.displayShows,
-            shows: this._shows
-          })
+          this._emitShowsSplit();
         });
+      })
+    );
+  }
+
+  loadAllYears() {
+    if (this._allYearsLoaded) { return; }
+    this._allYearsLoaded = true;
+
+    const yearsToLoad = this._allYears.filter(y => !this._showYears.includes(y));
+    if (yearsToLoad.length === 0) { return; }
+
+    this._sub.add(
+      forkJoin(
+        yearsToLoad.map((showYear) =>
+          this._http.get(`api/shows?year=${showYear}`)
+        )
+      )
+      .subscribe((showsByYear: any) => {
+        showsByYear.forEach((showYearShows: any[]) => {
+          [
+            ...this._shows,
+            ...showYearShows
+          ].forEach((x: any) => {
+            this.showHash[x.dateAndTime] = x;
+          });
+
+          this._shows = Object.values(this.showHash);
+        });
+
+        this._showYears = [...this._allYears];
+        this.sortAndDivideShows();
+        this._emitShowsSplit();
       })
     );
   }
 
   reinitShows() {
     this._shows = [];
+    this._allYearsLoaded = false;
+    this.showHash = {};
     this.init(true);
   }
 
@@ -123,11 +159,14 @@ export class ShowsService {
     });
 
     return String(`${startTime} - ${endTime}`);
-    
+
   }
 
   toggleShows() {
     this.showPastShows = !this.showPastShows;
+    if (this.showPastShows) {
+      this.loadAllYears();
+    }
     this.setTitle();
     this.setDisplayShows();
   }
@@ -165,6 +204,7 @@ export class ShowsService {
     this.pastShows = this._shows
       .filter((show: any) => this.isPastShow(show)).reverse();
 
+    this._buildPastShowsByYear();
     this.setDisplayShows();
     this.setTitle();
     setTimeout(() => {
@@ -172,5 +212,28 @@ export class ShowsService {
     }, 2000)
   }
 
-}
+  private _buildPastShowsByYear() {
+    const yearMap: { [year: number]: any[] } = {};
+    this.pastShows.forEach((show: any) => {
+      const year = new Date(show.dateAndTime).getFullYear();
+      if (!yearMap[year]) { yearMap[year] = []; }
+      yearMap[year].push(show);
+    });
 
+    this.pastShowsByYear = Object.keys(yearMap)
+      .map(Number)
+      .sort((a, b) => b - a)
+      .map(year => ({ year, shows: yearMap[year] }));
+  }
+
+  private _emitShowsSplit() {
+    this.showsSplit$.next({
+      futureShows: this.futureShows,
+      pastShows: this.pastShows,
+      pastShowsByYear: this.pastShowsByYear,
+      displayShows: this.displayShows,
+      shows: this._shows
+    });
+  }
+
+}

@@ -46,6 +46,7 @@
 
 .mtm-show-duration {
   @include kameron;
+  flex-shrink: 0;
 }
 
 .mtm-shows-center {
@@ -86,6 +87,19 @@
   }
 }
 
+.mtm-show-icons {
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-align: right;
+  padding-left: 0.5em;
+  i {
+    font-size: 1.95em;
+  }
+  a {
+    font-size: 1em;
+  }
+}
+
 .mtm-shows-body-collapse {
   padding-top: 0 !important;
 }
@@ -95,6 +109,17 @@
   padding-top: 2em;
   height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.mtm-shows-inner {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.mtm-show-part {
+  min-width: 0;
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -119,6 +144,8 @@ h3 {
   margin: 1em 0 1em 0;
   font-size: 1em;
   padding:.5em 0 .5em 0;
+  overflow: hidden;
+  max-width: 100%;
   &:hover {
     background-color: lighten(black, 10%);
     cursor: pointer;
@@ -136,6 +163,7 @@ h3 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .mtm-upcoming {
@@ -172,4 +200,14 @@ h3 {
 
 .nudge-fix {
   margin-right: -1em;
+}
+
+.mtm-year-heading {
+  text-align: center;
+  text-transform: uppercase;
+  color: #e8aaaa;
+  font-size: 2em;
+  margin: 1em 0 0 0;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgba(232, 170, 170, 0.25);
 }
